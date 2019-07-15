@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import search from  './components/search'
 import home from  './components/home'
+import report from  './components/report'
 
 Vue.use(Router)
 
@@ -18,6 +19,11 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: search
+    },
+    {
+      path: '/report',
+      name: 'report',
+      component: report
     }
   ]
 })

@@ -19,8 +19,5 @@
 </script>
 
 <style scoped lang="stylus">
-.testrem
-    width 7.5rem
-    background red
-    height: 1rem
+
 </style>
