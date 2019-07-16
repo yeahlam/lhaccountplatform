@@ -12,7 +12,28 @@
             </div>
         </div>
         <div class="photo">
-123
+            <div class="clearfix">
+                <div class="photo-row">
+                    <img class="picture" src="../assets/add_picture.png">
+                    <img class="close-right" src="../assets/close_right.png">
+                </div>
+                <div class="photo-row">
+                    <img class="picture" src="../assets/add_picture.png">
+                    <img class="close-right" src="../assets/close_right.png">
+                </div>
+                <div class="photo-row">
+                    <img class="picture" src="../assets/add_picture.png">
+                    <img class="close-right" src="../assets/close_right.png">
+                </div>
+                <div class="photo-row">
+                    <img class="picture" src="../assets/add_picture.png">
+                    <img class="close-right" src="../assets/close_right.png">
+                </div>
+                <div class="photo-row">
+                    <img class="picture" src="../assets/add_picture.png">
+                    <img class="close-right" src="../assets/close_right.png">
+                </div>
+            </div>
         </div>
 
     </div>
@@ -82,8 +103,39 @@
             background-color black
         div
             font-size 0.28rem
-            line-height 0.3rem;
+            line-height 0.3rem
             padding-left 0.14rem
+
+    .photo
+        background-color #fff
+        width 100%
+
+    .photo-row
+        position relative
+        width 1.2rem
+        height 1.64rem
+        float left
+
+        img.picture
+            display block
+            width 1.2rem
+            height 1.64rem
+            position absolute
+            top 0
+            left 0
+
+        img.close-right
+            display block
+            width 0.42rem
+            height 0.42rem
+            position absolute
+            top 0
+            right 0
+.clearfix:after
+    clear both
+.clearfix
+    zoom 1
+
 
 
 </style>
