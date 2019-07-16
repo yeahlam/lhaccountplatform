@@ -21,7 +21,7 @@
 			</swiper>
 		</div>
 		<div class="newsListBox">
-			<div class="newItem" v-for="(item,index) in newsList" :key="index">
+			<div class="newsItem" v-for="(item,index) in newsList" :key="index">
 				<div class="left">
 					<div class="title">撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势</div>
 					<div class="time">2019-09-09</div>
@@ -78,12 +78,13 @@
 
 	.newsListBox
 		margin-top: 0.32rem
-		.newItem
+		.newsItem
 			display flex
 			margin-left: 0.2rem
 			padding 0.36rem 0
 			border-top 1px solid #ddd
 			height: 1.44rem
+			margin-right: 0.2rem
 
 			.left
 				flex 1
@@ -99,6 +100,7 @@
 			.right
 				width 1.78rem
 				height 1.42rem
+
 
 			.title
 				line-height 0.5rem
