@@ -12,4 +12,5 @@
 	#app
 		max-width 750px
 		margin 0 auto
+		font-size 0.3rem
 </style>
