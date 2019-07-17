@@ -80,38 +80,38 @@
 	.videoListBox
 		margin-top: 0.32rem
 
-		.viedoItem
-			display flex
-			padding 0.26rem
-			border-top 1px solid #ddd
-			height: 2rem
+	.viedoItem
+		display flex
+		padding 0.26rem
+		border-top 1px solid #ddd
+		height: 2rem
 
-			.left
-				img
-					width: 3rem
-					height: 2rem
-				position: relative
-				margin-right: 0.26rem
+		.left
+			img
+				width: 3rem
+				height: 2rem
+			position: relative
+			margin-right: 0.26rem
 
-			.right
-				flex 1
-				position: relative
+		.right
+			flex 1
+			position: relative
 
-			.title
-				line-height 0.5rem
-				font-size 0.32rem
-				font-weight bold
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
+		.title
+			line-height 0.5rem
+			font-size 0.32rem
+			font-weight bold
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
 
-			.playtime
-				font-size 0.3rem
-				position: absolute
-				left: 0
-				bottom: 0
+		.playtime
+			font-size 0.3rem
+			position: absolute
+			left: 0
+			bottom: 0
 
 	.video
 		.swiperBox

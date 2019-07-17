@@ -79,39 +79,39 @@
 	.newsListBox
 		margin-top: 0.32rem
 
-		.newsItem
-			display flex
-			margin-left: 0.2rem
-			padding 0.36rem 0
-			border-top 1px solid #ddd
-			height: 1.44rem
-			margin-right: 0.2rem
+	.newsItem
+		display flex
+		margin-left: 0.2rem
+		padding 0.36rem 0
+		border-top 1px solid #ddd
+		height: 1.44rem
+		margin-right: 0.2rem
 
-			.left
-				flex 1
-				position: relative
+		.left
+			flex 1
+			position: relative
 
-				.time
-					color #ccc
-					position: absolute
-					left: 0
-					bottom: 0
-				margin-right: 0.3rem
+			.time
+				color #ccc
+				position: absolute
+				left: 0
+				bottom: 0
+			margin-right: 0.3rem
 
-			.right
-				width 1.78rem
-				height 1.42rem
+		.right
+			width 1.78rem
+			height 1.42rem
 
 
-			.title
-				line-height 0.5rem
-				font-size 0.32rem
-				font-weight bold
-				overflow: hidden;
-				text-overflow: ellipsis;
-				display: -webkit-box;
-				-webkit-line-clamp: 2;
-				-webkit-box-orient: vertical;
+		.title
+			line-height 0.5rem
+			font-size 0.32rem
+			font-weight bold
+			overflow: hidden;
+			text-overflow: ellipsis;
+			display: -webkit-box;
+			-webkit-line-clamp: 2;
+			-webkit-box-orient: vertical;
 
 	.swiperBox
 		height: 3.6rem
