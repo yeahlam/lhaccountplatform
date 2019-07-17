@@ -4,6 +4,7 @@ import search from './components/search'
 import news from './components/news'
 import home from './components/home'
 import report from './components/report'
+import video from './components/video'
 
 Vue.use(Router)
 
@@ -20,6 +21,11 @@ export default new Router({
             path: '/news',
             name: 'news',
             component: news
+        },
+        {
+            path: '/video',
+            name: 'video',
+            component: video
         },
         {
             path: '/search',

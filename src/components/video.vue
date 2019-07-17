@@ -1,5 +1,5 @@
 <template>
-	<div class="news">
+	<div class="video">
 		<div class="swiperBox">
 			<swiper :options="swiperOption" ref="mySwiper" class="swiperBox">
 				<!-- slides -->
@@ -14,20 +14,21 @@
 				</swiper-slide>
 
 				<!-- Optional controls -->
-				<div class="swiper-pagination" slot="pagination"></div>
 				<!--			<div class="swiper-button-prev" slot="button-prev"></div>-->
 				<!--			<div class="swiper-button-next" slot="button-next"></div>-->
 				<!--			<div class="swiper-scrollbar" slot="scrollbar"></div>-->
 			</swiper>
+			<div class="swiper-pagination" slot="pagination"></div>
+
 		</div>
-		<div class="newsListBox">
-			<div class="newsItem" v-for="(item,index) in newsList" :key="index">
+		<div class="videoListBox">
+			<div class="viedoItem" v-for="(item,index) in newsList" :key="index">
 				<div class="left">
-					<div class="title">撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势撒娇的离开家看见看架势</div>
-					<div class="time">2019-09-09</div>
+					<img src="../assets/timg.jpg" alt="">
 				</div>
 				<div class="right">
-					<img src="../assets/timg.jpg" alt="">
+					<div class="title">习近平阿萨德加凉开水金坷垃撒娇的卡拉建设路口家属楼贾老师</div>
+					<div class="playtime">0次播放</div>
 				</div>
 			</div>
 
@@ -76,32 +77,25 @@
 		width 100%
 		height: 100%
 
-	.newsListBox
+	.videoListBox
 		margin-top: 0.32rem
 
-		.newsItem
+		.viedoItem
 			display flex
-			margin-left: 0.2rem
-			padding 0.36rem 0
+			padding 0.26rem
 			border-top 1px solid #ddd
-			height: 1.44rem
-			margin-right: 0.2rem
+			height: 2rem
 
 			.left
-				flex 1
+				img
+					width: 3rem
+					height: 2rem
 				position: relative
-
-				.time
-					color #ccc
-					position: absolute
-					left: 0
-					bottom: 0
-				margin-right: 0.3rem
+				margin-right: 0.26rem
 
 			.right
-				width 1.78rem
-				height 1.42rem
-
+				flex 1
+				position: relative
 
 			.title
 				line-height 0.5rem
@@ -113,32 +107,54 @@
 				-webkit-line-clamp: 2;
 				-webkit-box-orient: vertical;
 
-	.swiperBox
-		height: 3.6rem
-		margin-top: 0.2rem
+			.playtime
+				font-size 0.3rem
+				position: absolute
+				left: 0
+				bottom: 0
 
-		.swiperItem
-			overflow: hidden
-			border-radius 0.1rem
-			background yellow
+	.video
+		.swiperBox
+			height: 3.6rem
+			margin-top: 0.2rem
+
+			.toCenter
+				display flex
+				align-items center
+				justify-content center
+				margin-top: 4px
+
+			.swiperItem
+				overflow: hidden
+				border-radius 0.1rem
+				background yellow
 
 
-		.swiper-slide
-			width: 85% !important;
-			margin: 0 7.5%;
+			.swiper-slide
+				width: 85% !important;
+				margin: 0 7.5%;
 
-		.swiper-slide-prev
-			right: -12%;
+			.swiper-slide-prev
+				right: -12%;
 
-		.swiper-slide-next
-			left: -12%;
+			.swiper-slide-next
+				left: -12%;
 
-		.swiper-pagination-bullet-active
-			background #fff
+			.swiper-pagination-bullet-active
+				background #fff
 
-		.swiper-pagination-bullet-active
-			width: 0.24rem
-			border-radius 0.12rem
-			background #b81c24
+			.swiper-pagination-bullet-active
+				width: 0.24rem
+				border-radius 0.12rem
+				background #b81c24
+
+			.swiper-pagination
+				width: 100%
+
+				.swiper-pagination-bullet
+					margin 0 4px
+
+				.swiper-pagination-bullet-active
+					background #00204e
 
 </style>
