@@ -46,6 +46,7 @@
             <input class="text" placeholder="请填写您的手机号码以便反馈进度"></input>
         </div>
         <div class="tips">*联系方式将严格保密</div>
+        <div class="submit">提交</div>
     </div>
 </template>
 
@@ -54,7 +55,7 @@
         name: "report",
         mounted() {
             //组建一进入就好u会调用这个方法
-            document.title='我要举报'
+            document.title='问题提交'
         }
     }
 </script>
@@ -184,7 +185,7 @@
         background-color #fff
         height 1.1rem
         width 100%
-        padding 0 1rem 0 0.12rem
+        padding 0 0rem 0 0.12rem
         box-sizing border-box
         display flex
         align-items center
@@ -200,6 +201,17 @@
             border 0
             outline none
             color #282828
+            width 100%
+    .submit
+        width 7.1rem
+        height 0.9rem
+        line-height 0.9rem
+        font-size 0.36rem
+        color #fff
+        background-color #00204e
+        border-radius 0.1rem
+        text-align center
+        margin 0.1rem auto 0
 
 
 
