@@ -5,6 +5,7 @@ import news from './components/news'
 import home from './components/home'
 import report from './components/report'
 import video from './components/video'
+import userCenter from './components/userCenter'
 
 Vue.use(Router)
 
@@ -36,6 +37,11 @@ export default new Router({
             path: '/report',
             name: 'report',
             component: report
+        },
+        {
+            path: '/userCenter',
+            name: 'userCenter',
+            component: userCenter
         }
     ]
 })
