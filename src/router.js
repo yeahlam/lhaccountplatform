@@ -8,6 +8,7 @@ import video from './components/video'
 import userCenter from './components/userCenter'
 import collection from './components/collection'
 import applyList from './components/applyList'
+import userinfo from './components/userinfo'
 
 Vue.use(Router)
 
@@ -54,6 +55,11 @@ export default new Router({
             path: '/applyList',
             name: 'applyList',
             component: applyList
+        },
+        {
+            path: '/userinfo',
+            name: 'userinfo',
+            component: userinfo
         }
     ]
 })

@@ -36,6 +36,11 @@
 				<router-link class="button" to="/applyList">申请通知</router-link>
 			</button>
 		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/userinfo">个人资料</router-link>
+			</button>
+		</div>
 	</div>
 
 </template>
