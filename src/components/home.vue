@@ -26,6 +26,11 @@
 				<router-link class="button" to="/userCenter">用户中心</router-link>
 			</button>
 		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/collection">收藏</router-link>
+			</button>
+		</div>
 	</div>
 
 </template>

@@ -6,6 +6,7 @@ import home from './components/home'
 import report from './components/report'
 import video from './components/video'
 import userCenter from './components/userCenter'
+import collection from './components/collection'
 
 Vue.use(Router)
 
@@ -42,6 +43,11 @@ export default new Router({
             path: '/userCenter',
             name: 'userCenter',
             component: userCenter
+        },
+        {
+            path: '/collection',
+            name: 'collection',
+            component: collection
         }
     ]
 })
