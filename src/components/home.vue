@@ -51,6 +51,11 @@
 				<router-link class="button" to="/problemclass">问题分类</router-link>
 			</button>
 		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/infodetail">问题详情</router-link>
+			</button>
+		</div>
 	</div>
 
 </template>
