@@ -41,6 +41,16 @@
 				<router-link class="button" to="/userinfo">个人资料</router-link>
 			</button>
 		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/message">通知</router-link>
+			</button>
+		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/problemclass">问题分类</router-link>
+			</button>
+		</div>
 	</div>
 
 </template>

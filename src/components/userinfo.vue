@@ -2,7 +2,7 @@
 	<div class="userInfo">
 
 		<div class="userInfoCard">
-			<div class="userInfoCardDecoration">请登录</div>
+			<div class="userInfoCardDecoration">网格员</div>
 			<div class="photo">
 				<img src="../assets/nophoto.png" alt="">
 			</div>
@@ -65,6 +65,7 @@
 			border-radius 0.1rem
 			background linear-gradient(to right, #0162ab, #73b7ed)
 			position: relative
+			box-shadow 0px 2px 10px rgba(0,0,0,0.5)
 
 			.tab-bar
 				position: absolute
@@ -87,7 +88,7 @@
 				right: 0
 				top: 0.34rem
 				font-size 0.28rem
-				line-height 0.64rem
+				line-height 0.7rem
 				text-align center
 				color #3c2500
 

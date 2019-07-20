@@ -134,6 +134,7 @@
 			border-radius 0.1rem
 			background linear-gradient(to right, #0162ab, #73b7ed)
 			position: relative
+			box-shadow 0px 2px 10px rgba(0,0,0,0.5)
 
 			.tab-bar
 				position: absolute
@@ -173,7 +174,7 @@
 				right: 0
 				top: 0.34rem
 				font-size 0.28rem
-				line-height 0.64rem
+				line-height 0.7rem
 				text-align center
 				color #3c2500
 

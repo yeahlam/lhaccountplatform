@@ -9,6 +9,9 @@ import userCenter from './components/userCenter'
 import collection from './components/collection'
 import applyList from './components/applyList'
 import userinfo from './components/userinfo'
+import message from './components/message'
+import problemclass from './components/problemclass'
+
 
 Vue.use(Router)
 
@@ -60,6 +63,16 @@ export default new Router({
             path: '/userinfo',
             name: 'userinfo',
             component: userinfo
+        },
+        {
+            path: '/message',
+            name: 'message',
+            component: message
+        },
+        {
+            path: '/problemclass',
+            name: 'problemclass',
+            component: problemclass
         }
     ]
 })

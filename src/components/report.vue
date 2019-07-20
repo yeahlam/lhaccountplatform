@@ -43,7 +43,7 @@
         </div>
         <div class="tips">*请详细描述方案发生位置，以便我们更快地核实处理案件</div>
         <div class="phone">
-            <input class="text" placeholder="请填写您的手机号码以便反馈进度"></input>
+            <input class="text" placeholder="请填写您的手机号码以便反馈进度">
         </div>
         <div class="tips">*联系方式将严格保密</div>
         <div class="submit">提交</div>
@@ -80,7 +80,8 @@
         margin-right 0.2rem
 
     .type_text
-        background-color #dcdcdc
+        background #dcdcdc url("../assets/down.png") no-repeat center right 0.2rem
+        background-size  auto 0.12rem
         color #666
         height 0.5rem
         line-height 0.5rem
