@@ -6,7 +6,7 @@ import MintUI from 'mint-ui'
 import 'mint-ui/lib/style.css'
 import './rem'
 import 'reset-css'
-
+import './userInfo'
 Vue.use(MintUI)
 
 Vue.config.productionTip = false
