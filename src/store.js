@@ -5,11 +5,15 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        userInfo: {}
+        userInfo: {},
+        userDict:[]
     },
     mutations: {
         setUserInfo(state, userInfo) {
             state.userInfo = userInfo
+        },
+        setUserDict(state, userDict) {
+            state.userDict = userDict
         }
     },
     actions: {
@@ -18,6 +22,9 @@ export default new Vuex.Store({
     getters:{
         getUserInfo: state => {
             return state.userInfo
+        },
+        getUserDict: state => {
+            return state.userDict
         }
     }
 })

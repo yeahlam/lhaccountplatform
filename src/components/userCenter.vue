@@ -1,38 +1,42 @@
 <template>
     <div class="userCenter">
-        <div class="tips-box">
+        <div v-if="false" class="tips-box">
             <div class="tips-box-text">你的</div>
             <div class="tips-close"></div>
         </div>
-        <div class="userInfoCard">
-            <div class="userInfoCardDecoration">{{userInfo.name}}</div>
+        <div class="userInfoCard" :class="[roleType]">
+            <div class="userInfoCardDecoration">{{userInfo.roleName}}</div>
             <div class="photo">
-                <img :src=headerImg alt="">
+                <img :src=headerImg>
             </div>
             <div class="userInfoTextBox">
-                <div class="name">{{userInfo.id}}</div>
+                <div class="name">{{userInfo.name}}</div>
                 <div class="usertitle">用户</div>
                 <div class="myScore">我的积分
                     <span class="score">{{userInfo.integration}}</span>
                 </div>
             </div>
             <div class="tab-bar">
-                <div class="tab-bar-item">
-                    <div class="num">22</div>
+                <div v-if="isManager" class="tab-bar-item" @click="gotoApplyList">
+                    <div class="num">{{notice.noticeNum}}</div>
+                    <div class="item-name">申请通知</div>
+                </div>
+                <div v-if="!isManager" class="tab-bar-item">
+                    <div class="num">{{notice.noticeNum}}</div>
                     <div class="item-name">通知</div>
                 </div>
-                <div v-if="false" class="tab-bar-item center-item">
-                    <div class="num">22</div>
+                <div v-if="!isManager" class="tab-bar-item center-item">
+                    <div class="num">{{notice.dynamicNum}}</div>
                     <div class="item-name">动态</div>
                 </div>
-                <div class="tab-bar-item center-item">
+                <div v-if="isManager" class="tab-bar-item center-item">
                     <div class="num">
                         <img class="gridLogo" src="../assets/logo.png" alt="">
                     </div>
                     <div class="item-name">网格管理</div>
                 </div>
                 <div class="tab-bar-item">
-                    <div class="num">22</div>
+                    <div class="num">{{notice.collectNum}}</div>
                     <div class="item-name">收藏</div>
                 </div>
             </div>
@@ -63,11 +67,15 @@
 </template>
 
 <script>
+    import * as api from '../api'
+
     let defaultImg = require('../assets/nophoto.png')
     export default {
         name: "userCenter",
         data() {
-            return {}
+            return {
+                notice: {}
+            }
         },
         computed: {
             userInfo() {
@@ -75,11 +83,35 @@
             },
             headerImg() {
                 return this.userInfo.phoneUrl ? this.userInfo.phoneUrl : defaultImg
+            },
+            roleType() {
+                if (this.$store.getters.getUserInfo.roleName === '超级管理员') {
+                    return 'supermanager'
+                }
+                if (this.$store.getters.getUserInfo.roleName === '管理员') {
+                    return 'manager'
+                }
+                return 'executer'
+            },
+            isManager() {
+                //是否管理员
+                return ['超级管理员', '管理员'].includes(this.$store.getters.getUserInfo.roleName)
             }
         },
-        mounted() {
+        methods: {
+            async getstatisticsNotice() {
+                let res = await api.statisticsNotice()
+                this.notice = res.data.data
+                console.log(res.data);
+            },
+            gotoApplyList() {
+                this.$router.push({name: 'applyList'})
+            }
+        },
+        async mounted() {
             //组建一进入就好u会调用这个方法
             document.title = '个人中心'
+            await this.getstatisticsNotice()
         }
     }
 </script>
@@ -155,6 +187,13 @@
             background linear-gradient(to right, #0162ab, #73b7ed)
             position: relative
             box-shadow 0px 2px 10px rgba(0, 0, 0, 0.5)
+
+            &.manager
+                background linear-gradient(to right, #970203, #c32700)
+
+            &.supermanager
+                background linear-gradient(to right, #9e7a3e, #debc7e)
+
 
             .tab-bar
                 position: absolute
