@@ -47,6 +47,16 @@
 				<div class="navigation-title">问题提交</div>
 				<div class="arror-right"></div>
 			</div>
+			<div class="navigation-item" v-if="isManager" @click="message">
+				<div class="icon"><img src="../assets/guide.png"></div>
+				<div class="navigation-title">问题处置情况</div>
+				<div class="arror-right"></div>
+			</div>
+			<div class="navigation-item" v-if="isLZ">
+				<div class="icon"><img src="../assets/scorShop.png"></div>
+				<div class="navigation-title">积分商城</div>
+				<div class="arror-right"></div>
+			</div>
 
 			<!--            <div class="navigation-item">-->
 			<!--                <div class="icon"><img src="../assets/scorShop.png"></div>-->
@@ -106,7 +116,11 @@
             isWGY() {
                 //是否网格员
                 return ['网格员'].includes(this.$store.getters.getUserInfo.roleName)
-            }
+            },
+			isLZ() {
+				//是否楼长
+				return ['楼长'].includes(this.$store.getters.getUserInfo.roleName)
+			}
         },
         methods: {
             async getstatisticsNotice() {
