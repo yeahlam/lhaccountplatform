@@ -3,6 +3,7 @@ import store from './store'
 import urls from './urls'
 export async function getUserInfo() {
     let res = await http.get(urls.user)
+    console.log(1);
     if (res.data.code === 200) {
         store.commit('setUserInfo',res.data.data)
     }
@@ -13,5 +14,3 @@ export async function getUserDict() {
         store.commit('setUserDict',res.data.data)
     }
 }
-getUserDict()
-getUserInfo()
