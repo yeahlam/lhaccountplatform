@@ -3,9 +3,12 @@
 		<div class="header">
 			<div class="type">
 				<div class="type_title">问题类型</div>
-				<div class="type_text" @click="chooseQuestionType">请选择</div>
+				<div v-if="!chooseType.name" class="type_text" @click="chooseQuestionType">请选择</div>
+				<div v-if="chooseType.name" class="type_text haveChoose" @click="chooseQuestionType">
+					{{chooseType.name}}
+				</div>
 			</div>
-			<textarea class="detail" placeholder="（必填）请对爆料的问题进行描述。"></textarea>
+			<textarea class="detail" placeholder="（必填）请对爆料的问题进行描述。" v-model="description"></textarea>
 			<div class="hide_name">
 				<img src="">
 				<div>匿名投诉</div>
@@ -17,22 +20,7 @@
 					<img class="picture" src="../assets/add_picture.png">
 					<img class="close-right" src="../assets/close_right.png">
 				</div>
-				<div class="photo-row">
-					<img class="picture" src="../assets/add_picture.png">
-					<img class="close-right" src="../assets/close_right.png">
-				</div>
-				<div class="photo-row">
-					<img class="picture" src="../assets/add_picture.png">
-					<img class="close-right" src="../assets/close_right.png">
-				</div>
-				<div class="photo-row">
-					<img class="picture" src="../assets/add_picture.png">
-					<img class="close-right" src="../assets/close_right.png">
-				</div>
-				<div class="photo-row">
-					<img class="picture" src="../assets/add_picture.png">
-					<img class="close-right" src="../assets/close_right.png">
-				</div>
+
 			</div>
 			<div class="count">[0/5]</div>
 		</div>
@@ -43,25 +31,62 @@
 		</div>
 		<div class="tips">*请详细描述方案发生位置，以便我们更快地核实处理案件</div>
 		<div class="phone">
-			<input class="text" placeholder="请填写您的手机号码以便反馈进度">
+			<input class="text" placeholder="请填写您的手机号码以便反馈进度" v-model="phone">
 		</div>
 		<div class="tips">*联系方式将严格保密</div>
-		<div class="submit">提交</div>
-		<questionChoose class="questionChoose"></questionChoose>
+		<div class="submit" @click="submit">提交</div>
+		<questionChoose class="questionChoose" v-if="showChoose" @select="typeSelect"></questionChoose>
 	</div>
 </template>
 
 <script>
     import questionChoose from './problemclass'
+    import * as api from '../api'
+    import {Toast} from 'mint-ui';
 
     export default {
         name: "report",
+        data() {
+            return {
+                showChoose: false, //是否显示类型选择
+                chooseType: {}, //选择类型
+                description: '', //问题描述
+                phone: '' //手机号码
+            }
+        },
         components: {
             questionChoose
         },
-        methods: {
-            chooseQuestionType() {
+        computed: {
+            postModel() {
+                return {
+                    "description":  this.description,
+                    "buildingId": 1,
+                    "questionTypeId": this.chooseType.type,
+                    "questionPosition": "门把",
+                    "currentLocation": "测试",
+                    "pictureUrl": "aa.png"
+                }
 
+            }
+        },
+        methods: {
+            async submit() {
+                try {
+                    await api.submitQuestion(this.postModel)
+                    Toast({
+                        message: '提交成功'
+                    });
+                } catch (e) {
+                    Toast('提交失败');
+                }
+            },
+            chooseQuestionType() {
+                this.showChoose = true
+            },
+            typeSelect(item) {
+                this.chooseType = item
+                this.showChoose = false
             }
         },
         mounted() {
@@ -80,6 +105,7 @@
 		bottom: 0
 		background #fff
 		z-index: 1
+
 	.report
 		min-height 100vh
 		background-color #f0f0f0
@@ -108,6 +134,9 @@
 			width 2.8rem
 			text-align center
 			border-radius 0.1rem
+
+			&.haveChoose
+				background #dcdcdc
 
 		.detail
 			width calc(100% - 0.56rem)

@@ -1,6 +1,6 @@
 <template>
 	<div class="infodetail">
-<!--		<div class="title">请提交违规场景信息，仅用于网格员审核</div>-->
+		<!--		<div class="title">请提交违规场景信息，仅用于网格员审核</div>-->
 		<div class="swiperBox">
 			<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 				<!-- slides -->
@@ -13,12 +13,8 @@
 				<swiper-slide class="swiperItem">
 					<img src="../assets/timg.jpg" alt="">
 				</swiper-slide>
-
 				<!-- Optional controls -->
 				<div class="swiper-pagination" slot="pagination"></div>
-				<!--			<div class="swiper-button-prev" slot="button-prev"></div>-->
-				<!--			<div class="swiper-button-next" slot="button-next"></div>-->
-				<!--			<div class="swiper-scrollbar" slot="scrollbar"></div>-->
 			</swiper>
 
 		</div>
@@ -31,18 +27,7 @@
 				<div class="text">
 					楼主姓名：张三<br/>
 					楼层地址：xxxxxxxx<br/>
-					问题描述：xxxxxxxx
-				</div>
-			</div>
-			<div class="row">
-				<div class="title">
-					<div class="green-dot"></div>
-					违规楼层信息
-				</div>
-				<div class="text">
-					楼主姓名：张三<br/>
-					楼层地址：xxxxxxxx<br/>
-					问题描述：xxxxxxxx
+					问题描述：{{problemData.description}}
 				</div>
 			</div>
 
@@ -80,6 +65,12 @@
         computed: {
             swiper() {
                 return this.$refs.mySwiper.swiper
+            },
+            problemData() {
+                return this.detailData[0] || {}
+            },
+			resolveData(){
+                return this.detailData[1] || {}
             }
         },
         methods: {
