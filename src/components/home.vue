@@ -56,6 +56,11 @@
 				<router-link class="button" to="/infodetail">问题详情</router-link>
 			</button>
 		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/complete">完成任务</router-link>
+			</button>
+		</div>
 	</div>
 
 </template>
