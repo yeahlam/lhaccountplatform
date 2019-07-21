@@ -1,7 +1,7 @@
 <template>
 	<div class="news">
 		<div class="swiperBox">
-			<swiper :options="swiperOption" ref="mySwiper" class="swiperBox">
+			<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 				<!-- slides -->
 				<swiper-slide class="swiperItem">
 					<img src="../assets/timg.jpg" alt="">
@@ -116,22 +116,23 @@
 	.swiperBox
 		height: 3.6rem
 		margin-top: 0.2rem
+		.swiperBoxMain
 
-		.swiperItem
-			overflow: hidden
-			border-radius 0.1rem
-			background yellow
+			.swiperItem
+				overflow: hidden
+				border-radius 0.1rem
+				background yellow
 
 
-		.swiper-slide
-			width: 85% !important;
-			margin: 0 7.5%;
+			.swiper-slide
+				width: 85% !important;
+				margin: 0 7.5%;
 
-		.swiper-slide-prev
-			right: -12%;
+			.swiper-slide-prev
+				right: -12%;
 
-		.swiper-slide-next
-			left: -12%;
+			.swiper-slide-next
+				left: -12%;
 
 		.swiper-pagination-bullet-active
 			background #fff
