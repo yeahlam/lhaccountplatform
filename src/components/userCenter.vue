@@ -21,7 +21,7 @@
                     <div class="num">{{notice.noticeNum}}</div>
                     <div class="item-name">申请通知</div>
                 </div>
-                <div v-if="!isManager" class="tab-bar-item">
+                <div v-if="!isManager" class="tab-bar-item" @click="gotoApplyMessage">
                     <div class="num">{{notice.noticeNum}}</div>
                     <div class="item-name">通知</div>
                 </div>
@@ -106,6 +106,9 @@
             },
             gotoApplyList() {
                 this.$router.push({name: 'applyList'})
+            },
+            gotoApplyMessage() {
+                this.$router.push({name: 'message'})
             }
         },
         async mounted() {
