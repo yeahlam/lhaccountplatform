@@ -4,15 +4,10 @@
 		<div class="swiperBox">
 			<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 				<!-- slides -->
-				<swiper-slide class="swiperItem">
-					<img src="../assets/timg.jpg" alt="">
+				<swiper-slide class="swiperItem" v-for="item in problemData.pictureUrl" :key="item">
+					<img :src="item" alt="">
 				</swiper-slide>
-				<swiper-slide class="swiperItem">
-					<img src="../assets/timg.jpg" alt="">
-				</swiper-slide>
-				<swiper-slide class="swiperItem">
-					<img src="../assets/timg.jpg" alt="">
-				</swiper-slide>
+
 				<!-- Optional controls -->
 				<div class="swiper-pagination" slot="pagination"></div>
 			</swiper>
@@ -25,22 +20,29 @@
 					违规楼层信息
 				</div>
 				<div class="text">
-					楼主姓名：张三<br/>
-					楼层地址：xxxxxxxx<br/>
+					楼主姓名：{{problemData.receiverName}} <br/>
+					楼层地址：{{problemData.currentLocation}}<br/>
 					问题描述：{{problemData.description}}
 				</div>
 			</div>
 
 		</div>
-		<div class="btn">
+		<div class="btn" v-show="isWGY&&problemData.status==2">
 			<div class="finished">问题已完成</div>
 			<div class="notyet">问题未完成</div>
+		</div>
+		<div class="btn" v-show="isLZ&&problemData.status==0">
+			<div class="finished" @click="receiveTask">接收任务</div>
+		</div>
+		<div class="btn" v-show="isLZ&&problemData.status==1">
+			<div class="finished">完成任务</div>
 		</div>
 	</div>
 
 </template>
 
 <script>
+    import {Toast} from 'mint-ui';
     import 'swiper/dist/css/swiper.css'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
     import * as api from '../api'
@@ -69,11 +71,25 @@
             problemData() {
                 return this.detailData[0] || {}
             },
-			resolveData(){
-                return this.detailData[1] || {}
+            isWGY() {
+                //是否网格员
+                return ['网格员'].includes(this.$store.getters.getUserInfo.roleName)
+            },
+            isLZ() {
+                //是否楼长
+                return ['楼长'].includes(this.$store.getters.getUserInfo.roleName)
             }
         },
         methods: {
+            async receiveTask() {
+                let res = await api.exchangeStatus({
+                    status: 1,
+                    questionNumber: this.$route.query.problemNumber
+                })
+                Toast('接收成功')
+                await this.getDetail()
+                console.log(res.data);
+            },
             async getDetail() {
                 let res = await api.houseNoticeDetail(this.$route.query.problemNumber)
                 this.detailData = res.data.data
@@ -82,7 +98,6 @@
         },
         mounted() {
             this.getDetail()
-
         }
     }
 </script>
@@ -97,86 +112,6 @@
 			background-color #d2d2d2
 
 	.infodetail
-		.gallery-thumbs
-			height: 0.67rem
-
-		.swiperBox
-			height: auto
-			margin-top: 0.2rem
-
-		.swiperBoxMain
-			.swiperItem
-				overflow: hidden
-				border-radius 0.1rem
-				background yellow
-
-			.swiper-slide
-				width: 50% !important;
-				margin: 0 25%;
-
-			.swiper-slide-prev
-				right: -42%;
-
-			.swiper-slide-next
-				left: -42%;
-
-			.swiper-pagination-bullet-active
-				background #fff
-
-			.swiper-pagination-bullet-active
-				width: 0.24rem
-				border-radius 0.12rem
-				background #b81c24
-
-		.title
-			text-align center
-			color #01204c
-			font-size 0.3rem
-			padding-top 0.3rem
-			padding-bottom 0.4rem
-
-		.detail
-			border-top 1px solid #d2d2d2
-
-			.row
-				border-radius 0.1rem
-				margin 0.3rem
-				box-shadow 0 0 10px rgba(0, 0, 0, 0.2)
-
-				.text
-					color #b2b2b2
-					font-size 0.26rem
-					line-height 0.46rem
-					margin 0 0.4rem
-					padding-bottom 0.6rem
-					padding-top 0.3rem
-
-				.title
-					color #333
-					height 0.7rem
-					line-height 0.7rem
-					font-size 0.3rem
-					margin 0 0.4rem
-					display flex
-					align-items center
-					border-bottom 1px solid #d2d2d2
-					padding-bottom 0.1rem
-
-					.red-dot
-						width 0.1rem
-						height 0.1rem
-						border-radius 50%
-						background-color #ff0000
-						margin-right 0.2rem
-
-					.green-dot
-						width 0.1rem
-						height 0.1rem
-						border-radius 50%
-						background-color #41c400
-						margin-right 0.2rem
-
-
 		.btn
 			margin 0 0.8rem
 			display flex
@@ -204,6 +139,88 @@
 				font-size 0.3rem
 				background-color #fff
 				text-align center
+
+		.gallery-thumbs
+			height: 0.67rem
+
+		.swiperBox
+			margin-top: 0.2rem
+
+			.swiper-container
+				height: 3.6rem
+
+
+	.swiperBoxMain
+		.swiperItem
+			overflow: hidden
+			border-radius 0.1rem
+			background yellow
+
+		.swiper-slide
+			width: 50% !important;
+			margin: 0 25%;
+
+		.swiper-slide-prev
+			right: -42%;
+
+		.swiper-slide-next
+			left: -42%;
+
+		.swiper-pagination-bullet-active
+			background #fff
+
+		.swiper-pagination-bullet-active
+			width: 0.24rem
+			border-radius 0.12rem
+			background #b81c24
+
+	.title
+		text-align center
+		color #01204c
+		font-size 0.3rem
+		padding-top 0.3rem
+		padding-bottom 0.4rem
+
+	.detail
+		border-top 1px solid #d2d2d2
+
+		.row
+			border-radius 0.1rem
+			margin 0.3rem
+			box-shadow 0 0 10px rgba(0, 0, 0, 0.2)
+
+			.text
+				color #b2b2b2
+				font-size 0.26rem
+				line-height 0.46rem
+				margin 0 0.4rem
+				padding-bottom 0.6rem
+				padding-top 0.3rem
+
+			.title
+				color #333
+				height 0.7rem
+				line-height 0.7rem
+				font-size 0.3rem
+				margin 0 0.4rem
+				display flex
+				align-items center
+				border-bottom 1px solid #d2d2d2
+				padding-bottom 0.1rem
+
+				.red-dot
+					width 0.1rem
+					height 0.1rem
+					border-radius 50%
+					background-color #ff0000
+					margin-right 0.2rem
+
+				.green-dot
+					width 0.1rem
+					height 0.1rem
+					border-radius 50%
+					background-color #41c400
+					margin-right 0.2rem
 
 
 </style>

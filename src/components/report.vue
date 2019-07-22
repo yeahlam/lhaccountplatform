@@ -16,13 +16,17 @@
 		</div>
 		<div class="photo">
 			<div class="photo-list">
-				<div class="photo-row">
+				<div class="photo-row" v-for="(item,index) in photoList" :key="index">
+					<img class="picture" :src="item">
+					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
+				</div>
+				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
 					<img class="picture" src="../assets/add_picture.png">
-					<img class="close-right" src="../assets/close_right.png">
+					<input type="file" style="display: none" ref="picinput" @change="inputChange">
 				</div>
 
 			</div>
-			<div class="count">[0/5]</div>
+			<div class="count">[{{photoList.length}}/5]</div>
 		</div>
 		<div class="tips">*点击“+”添加图片，点击“×”可删除图片，最多上传5张图片</div>
 		<div class="location">
@@ -43,11 +47,14 @@
     import questionChoose from './problemclass'
     import * as api from '../api'
     import {Toast} from 'mint-ui';
+    import axios from 'axios'
+    import url from '../urls'
 
     export default {
         name: "report",
         data() {
             return {
+                photoList: [],
                 showChoose: false, //是否显示类型选择
                 chooseType: {}, //选择类型
                 description: '', //问题描述
@@ -59,18 +66,44 @@
         },
         computed: {
             postModel() {
+
                 return {
-                    "description":  this.description,
+                    "description": this.description,
                     "buildingId": 1,
                     "questionTypeId": this.chooseType.type,
                     "questionPosition": "门把",
                     "currentLocation": "测试",
-                    "pictureUrl": "aa.png"
+                    "pictureUrl": this.photoList
                 }
 
             }
         },
         methods: {
+            async inputChange() {
+
+                let picinput = this.$refs.picinput
+                if (this.photoList.length >= 5) {
+                    picinput.value = ''
+                    return
+                }
+                let formdata = new FormData();// 创建form对象
+                formdata.append('file', picinput.files[0]);
+                try {
+                    let res = await axios.post(url.upLoadpicture, formdata, {
+                        headers: {'Content-Type': 'multipart/form-data'}
+                    })
+                    this.photoList.push(res.data.data.path)
+                    Toast('上传成功')
+                } catch (e) {
+                    Toast('上传失败')
+                }
+                picinput.value = ''
+
+            },
+            async choosePic() {
+                let picinput = this.$refs.picinput
+                picinput.click()
+            },
             async submit() {
                 try {
                     await api.submitQuestion(this.postModel)
@@ -87,6 +120,9 @@
             typeSelect(item) {
                 this.chooseType = item
                 this.showChoose = false
+            },
+            delpic(index) {
+                this.photoList.splice(index, 1)
             }
         },
         mounted() {
@@ -176,16 +212,16 @@
 			padding-top 0.3rem
 
 		.photo-list
-			width calc(100% - 0.28rem)
 			overflow hidden
 			margin 0 auto
+			padding 0.1rem
 
 		.photo-row
 			position relative
 			width 1.2rem
 			height 1.64rem
-			margin-right calc((100% - 6rem) / 4)
 			float left
+			margin-right: 0.1rem
 
 			img.picture
 				display block

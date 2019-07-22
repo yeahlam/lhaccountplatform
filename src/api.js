@@ -28,3 +28,7 @@ export async function getQuestionType() {
 export async function submitQuestion(body) {
     return await http.post(urls.submitQuestion, body)
 }
+
+export async function exchangeStatus(body) {
+    return await http.post(urls.exchangeStatus, body)
+}
