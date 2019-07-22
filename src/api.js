@@ -32,3 +32,11 @@ export async function submitQuestion(body) {
 export async function exchangeStatus(body) {
     return await http.post(urls.exchangeStatus, body)
 }
+
+export async function questionDeal(body) {
+    return await http.post(urls.questionDeal, body)
+}
+
+export async function dealConfirm(body) {
+    return await http.post(urls.dealConfirm, body)
+}

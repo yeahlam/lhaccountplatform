@@ -27,15 +27,15 @@
 			</div>
 
 		</div>
-		<div class="btn" v-show="isWGY&&problemData.status==2">
-			<div class="finished">问题已完成</div>
-			<div class="notyet">问题未完成</div>
+		<div class="btn" v-show="isWGY&&realStatus==2">
+			<div class="finished" @click="dealConfirm(1)">问题已完成</div>
+			<div class="notyet" @click="dealConfirm(2)">问题未完成</div>
 		</div>
-		<div class="btn" v-show="isLZ&&problemData.status==0">
+		<div class="btn" v-show="isLZ&&realStatus==0">
 			<div class="finished" @click="receiveTask">接收任务</div>
 		</div>
-		<div class="btn" v-show="isLZ&&problemData.status==1">
-			<div class="finished">完成任务</div>
+		<div class="btn" v-show="isLZ&&realStatus==1">
+			<div class="finished" @click="gotoComplete">完成任务</div>
 		</div>
 	</div>
 
@@ -60,7 +60,8 @@
                         el: '.swiper-pagination',
                     }
                 },
-                detailData: {}
+                detailData: {},
+                realStatus: 0
             }
         },
 
@@ -71,6 +72,7 @@
             problemData() {
                 return this.detailData[0] || {}
             },
+
             isWGY() {
                 //是否网格员
                 return ['网格员'].includes(this.$store.getters.getUserInfo.roleName)
@@ -81,14 +83,41 @@
             }
         },
         methods: {
+            async dealConfirm(status) {
+                try {
+                    await api.dealConfirm({
+                        status,
+                        questionNumber: this.$route.query.problemNumber
+                    })
+                    Toast('提交成功')
+                    await this.getStatus()
+                    await this.getDetail()
+                } catch (e) {
+                    Toast('提交失败')
+                }
+
+            },
+            async getStatus() {
+                let res = await api.notices(this.$store.getters.getUserInfo.roleId)
+                this.realStatus = res.data.data.find(item => {
+                    return item.problemNumber == this.$route.query.problemNumber
+                }).status
+
+            },
+            gotoComplete() {
+                this.$router.push({name: 'complete', query: {problemNumber: this.$route.query.problemNumber}})
+            },
             async receiveTask() {
-                let res = await api.exchangeStatus({
-                    status: 1,
-                    questionNumber: this.$route.query.problemNumber
-                })
-                Toast('接收成功')
-                await this.getDetail()
-                console.log(res.data);
+                try {
+                    api.exchangeStatus({
+                        questionNumber: this.$route.query.problemNumber
+                    })
+                    Toast('接收任务成功')
+                    await this.getStatus()
+                    await this.getDetail()
+                } catch (e) {
+                    Toast('接收任务失败')
+                }
             },
             async getDetail() {
                 let res = await api.houseNoticeDetail(this.$route.query.problemNumber)
@@ -96,8 +125,9 @@
                 console.log(res.data);
             }
         },
-        mounted() {
-            this.getDetail()
+        async mounted() {
+            await this.getStatus()
+            await this.getDetail()
         }
     }
 </script>

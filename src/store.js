@@ -19,7 +19,7 @@ export default new Vuex.Store({
                 name: "12",
                 phoneUrl: "ad.png",
                 roleId: 1,
-                roleName: "楼长"
+                roleName: "网格员"
             }
         },
         setUserDict(state, userDict) {
