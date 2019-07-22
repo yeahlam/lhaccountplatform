@@ -8,4 +8,6 @@ export default {
     submitQuestion: '/wx2/operate/submit-question',
     upLoadpicture: '/wx2/upload/picture',
     exchangeStatus: '/wx2/operate/exchange-status',
+    questionDeal: '/wx2/operate/question-deal',
+    dealConfirm: '/wx2/operate/question-deal-confirm',
 }
