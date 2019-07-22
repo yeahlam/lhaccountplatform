@@ -13,6 +13,7 @@ import message from './components/message'
 import problemclass from './components/problemclass'
 import infodetail from './components/infodetail'
 import complete from './components/complete'
+import login from './components/login'
 
 
 Vue.use(Router)
@@ -85,6 +86,11 @@ export default new Router({
             path: '/complete',
             name: 'complete',
             component: complete
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login
         }
     ]
 })
