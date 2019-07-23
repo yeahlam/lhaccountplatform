@@ -1,13 +1,26 @@
+export function isDev() {
+    return process.env.NODE_ENV === "development"
+}
+
+function wxchoose() {
+    if (isDev()) {
+        return `wx2`
+    }else {
+        return `wx`
+    }
+}
+let wx= wxchoose()
+
 export default {
-    user: '/wx2/basic-info/user',
-    roles: '/wx2/basic-info/roles',
-    statisticsNotice: '/wx2/basic-info/statistics-notice',
-    notices: '/wx2/basic-info/notices',
-    houseNoticeDetail: '/wx2/basic-info/house-notice-detail',
-    getQuestionType: '/wx2/basic-info/get-question-type',
-    submitQuestion: '/wx2/operate/submit-question',
-    upLoadpicture: '/wx2/upload/picture',
-    exchangeStatus: '/wx2/operate/exchange-status',
-    questionDeal: '/wx2/operate/question-deal',
-    dealConfirm: '/wx2/operate/question-deal-confirm',
+    user: `/${wx}/basic-info/user`,
+    roles: `/${wx}/basic-info/roles`,
+    statisticsNotice: `/${wx}/basic-info/statistics-notice`,
+    notices: `/${wx}/basic-info/notices`,
+    houseNoticeDetail: `/${wx}/basic-info/house-notice-detail`,
+    getQuestionType: `/${wx}/basic-info/get-question-type`,
+    submitQuestion: `/${wx}/operate/submit-question`,
+    upLoadpicture: `/${wx}/upload/picture`,
+    exchangeStatus: `/${wx}/operate/exchange-status`,
+    questionDeal: `/${wx}/operate/question-deal`,
+    dealConfirm: `/${wx}/operate/question-deal-confirm`,
 }

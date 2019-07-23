@@ -19,14 +19,7 @@
 				<div class="title">
 					违规楼层信息
 				</div>
-				<div class="section">
-					<div class="input-title">楼长姓名</div>
-					<input class="input" placeholder="" v-model="name">
-				</div>
-				<div class="section">
-					<div class="input-title">楼层地址</div>
-					<input class="input" placeholder="" v-model="currentLocation">
-				</div>
+
 				<div class="textarea">
 					<textarea placeholder="问题描述（200字以内）" maxlength="200" v-model="description"></textarea>
 				</div>
