@@ -40,3 +40,6 @@ export async function questionDeal(body) {
 export async function dealConfirm(body) {
     return await http.post(urls.dealConfirm, body)
 }
+export async function buildings() {
+    return await http.get(urls.buildings)
+}

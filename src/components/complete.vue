@@ -62,10 +62,7 @@
                 try {
                     await api.questionDeal(this.postModel)
                     Toast('提交成功')
-					this.$router.push({ name: 'infodetail',
-                        query: {
-                            problemNumber: this.$route.query.problemNumber
-                        }})
+                    this.$router.replace({name:'userCenter'})
                 } catch (e) {
                     Toast('提交失败')
 
@@ -167,6 +164,7 @@
 			.row
 				border-radius 0.1rem
 				margin 0.3rem
+				overflow: hidden
 
 				.textarea
 					border 1px solid #eaeaea
@@ -214,7 +212,6 @@
 					height 0.7rem
 					line-height 0.7rem
 					font-size 0.3rem
-					margin 0 0 0 0.7rem
 
 
 		.submit

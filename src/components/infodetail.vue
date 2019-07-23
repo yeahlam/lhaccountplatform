@@ -1,7 +1,7 @@
 <template>
 	<div class="infodetail">
 		<!--		<div class="title">请提交违规场景信息，仅用于网格员审核</div>-->
-		<div class="swiperBox">
+		<div class="swiperBox" v-if="problemData.pictureUrl">
 			<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 				<!-- slides -->
 				<swiper-slide class="swiperItem" v-for="item in problemData.pictureUrl" :key="item">
@@ -21,20 +21,48 @@
 				</div>
 				<div class="text">
 					楼主姓名：{{problemData.receiverName}} <br/>
-					楼层地址：{{problemData.currentLocation}}<br/>
+					楼层地址：{{problemData.buildingName}}<br/>
 					问题描述：{{problemData.description}}
 				</div>
 			</div>
 
 		</div>
+		<template v-if="realStatus==2||realStatus==3">
+			<div class="swiperBox" v-if="answerData.pictureUrl">
+				<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
+					<!-- slides -->
+					<swiper-slide class="swiperItem" v-for="item in answerData.pictureUrl" :key="item">
+						<img :src="item" alt="">
+					</swiper-slide>
+
+					<!-- Optional controls -->
+					<div class="swiper-pagination" slot="pagination"></div>
+				</swiper>
+
+			</div>
+			<div class="detail">
+				<div class="row">
+					<div class="title">
+						<div class="green-dot"></div>
+						楼层处理方案
+					</div>
+					<div class="text">
+						问题描述：{{answerData.description}}
+					</div>
+				</div>
+
+			</div>
+		</template>
+
+
 		<div class="btn" v-show="isWGY&&realStatus==2">
 			<div class="finished" @click="dealConfirm(1)">问题已完成</div>
 			<div class="notyet" @click="dealConfirm(0)">问题未完成</div>
 		</div>
-		<div class="btn" v-show="isLZ&&realStatus==0">
+		<div class="btn centerbtnbox" v-show="isLZ&&realStatus==0">
 			<div class="finished" @click="receiveTask">接收任务</div>
 		</div>
-		<div class="btn" v-show="isLZ&&realStatus==1">
+		<div class="btn centerbtnbox" v-show="isLZ&&realStatus==1">
 			<div class="finished" @click="gotoComplete">完成任务</div>
 		</div>
 	</div>
@@ -72,6 +100,9 @@
             problemData() {
                 return this.detailData[0] || {}
             },
+            answerData() {
+                return this.detailData[1] || {}
+            },
 
             isWGY() {
                 //是否网格员
@@ -90,8 +121,9 @@
                         questionNumber: this.$route.query.problemNumber
                     })
                     Toast('提交成功')
-                    await this.getStatus()
-                    await this.getDetail()
+					this.$router.replace({name:'userCenter'})
+                    // await this.getStatus()
+                    // await this.getDetail()
                 } catch (e) {
                     Toast('提交失败')
                 }
@@ -147,6 +179,9 @@
 			display flex
 			align-items center
 			justify-content space-between
+
+			&.centerbtnbox
+				justify-content center
 
 			.finished
 				width 2.46rem
@@ -205,9 +240,9 @@
 			background #b81c24
 
 
-
 	.detail
 		border-top 1px solid #d2d2d2
+		margin-top 0.2rem
 
 		.row
 			border-radius 0.1rem

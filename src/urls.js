@@ -23,4 +23,5 @@ export default {
     exchangeStatus: `/${wx}/operate/exchange-status`,
     questionDeal: `/${wx}/operate/question-deal`,
     dealConfirm: `/${wx}/operate/question-deal-confirm`,
+    buildings: `/${wx}/basic-info/buildings`,
 }

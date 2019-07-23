@@ -34,10 +34,16 @@
 			<div class="get" @click="isShowMap=true">定位</div>
 		</div>
 		<div class="tips">*请详细描述方案发生位置，以便我们更快地核实处理案件</div>
-		<div class="phone">
+		<div class="phone phonelogo">
 			<input class="text" placeholder="请填写您的手机号码以便反馈进度" v-model="phone">
 		</div>
 		<div class="tips">*联系方式将严格保密</div>
+		<div class="phone">
+			<select class="text" placeholder="选择具体楼层" v-model="chooseBuilding">
+				<option :key="index" v-for="(item,index) in buildingsList" :value="item.id">{{item.name}}</option>
+			</select>
+		</div>
+		<div class="tips">*请选择具体建筑</div>
 		<div class="submit" @click="submit">提交</div>
 		<questionChoose class="questionChoose" v-if="showChoose" @select="typeSelect"></questionChoose>
 		<txmap2 v-show="isShowMap" @selectMap="selectMap"></txmap2>
@@ -62,7 +68,9 @@
                 description: '', //问题描述
                 phone: '', //手机号码
                 isShowMap: false,
-                address: '',//经纬度
+                address: '',//地址
+                buildingsList: [], //楼层列表
+                chooseBuilding: ''
             }
         },
         components: {
@@ -74,7 +82,7 @@
 
                 return {
                     "description": this.description,
-                    "buildingId": 1,
+                    "buildingId": this.chooseBuilding,
                     "questionTypeId": this.chooseType.type,
                     "currentLocation": this.address,
                     "pictureUrl": this.photoList
@@ -136,9 +144,12 @@
                 this.photoList.splice(index, 1)
             }
         },
-        mounted() {
+        async mounted() {
             //组建一进入就好u会调用这个方法
             document.title = '问题提交'
+
+            let res = await api.buildings()
+            this.buildingsList = res.data.data
         }
     }
 </script>
@@ -315,7 +326,10 @@
 				outline none
 				color #282828
 				width 100%
-
+		.phonelogo
+			.text
+				background url("../assets/phone.png") no-repeat left center
+				background-size 0.3rem 0.4rem
 		.submit
 			width 7.1rem
 			height 0.9rem
