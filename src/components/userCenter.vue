@@ -117,12 +117,14 @@
                 //是否网格员
                 return ['网格员'].includes(this.$store.getters.getUserInfo.roleName)
             },
-			isLZ() {
-				//是否楼长
-				return ['楼长'].includes(this.$store.getters.getUserInfo.roleName)
-			}
+            isLZ() {
+                //是否楼长
+                return ['楼长'].includes(this.$store.getters.getUserInfo.roleName)
+            }
         },
         methods: {
+            message() {
+            },
             async getstatisticsNotice() {
                 let res = await api.statisticsNotice()
                 this.notice = res.data.data
@@ -134,7 +136,7 @@
             gotoApplyMessage() {
                 this.$router.push({name: 'message'})
             },
-            gotoreport(){
+            gotoreport() {
                 this.$router.push({name: 'report'})
 
             }
