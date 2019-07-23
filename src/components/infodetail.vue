@@ -29,7 +29,7 @@
 		</div>
 		<div class="btn" v-show="isWGY&&realStatus==2">
 			<div class="finished" @click="dealConfirm(1)">问题已完成</div>
-			<div class="notyet" @click="dealConfirm(2)">问题未完成</div>
+			<div class="notyet" @click="dealConfirm(0)">问题未完成</div>
 		</div>
 		<div class="btn" v-show="isLZ&&realStatus==0">
 			<div class="finished" @click="receiveTask">接收任务</div>
@@ -204,12 +204,7 @@
 			border-radius 0.12rem
 			background #b81c24
 
-	.title
-		text-align center
-		color #01204c
-		font-size 0.3rem
-		padding-top 0.3rem
-		padding-bottom 0.4rem
+
 
 	.detail
 		border-top 1px solid #d2d2d2

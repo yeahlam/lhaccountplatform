@@ -71,9 +71,9 @@
                     "description": this.description,
                     "buildingId": 1,
                     "questionTypeId": this.chooseType.type,
-                    "questionPosition": "门把",
                     "currentLocation": "测试",
-                    "pictureUrl": this.photoList
+                    "pictureUrl": this.photoList,
+                    phoneNumber: this.phone
                 }
 
             }
