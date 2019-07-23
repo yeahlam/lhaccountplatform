@@ -61,6 +61,16 @@
 				<router-link class="button" to="/complete">完成任务</router-link>
 			</button>
 		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/login">登录</router-link>
+			</button>
+		</div>
+		<div>
+			<button>
+				<router-link class="button" to="/txmap">地图</router-link>
+			</button>
+		</div>
 	</div>
 
 </template>

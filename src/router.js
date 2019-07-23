@@ -13,6 +13,9 @@ import message from './components/message'
 import problemclass from './components/problemclass'
 import infodetail from './components/infodetail'
 import complete from './components/complete'
+import login from './components/login'
+import txmap from './components/txmap'
+import txmap2 from './components/txmap2'
 
 
 Vue.use(Router)
@@ -85,6 +88,21 @@ export default new Router({
             path: '/complete',
             name: 'complete',
             component: complete
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: login
+        },
+        {
+            path: '/txmap',
+            name: 'txmap',
+            component: txmap
+        },
+        {
+            path: '/txmap2',
+            name: 'txmap2',
+            component: txmap2
         }
     ]
 })
