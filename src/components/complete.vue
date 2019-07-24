@@ -59,10 +59,15 @@
         },
         methods: {
             async questionDeal() {
+                if (!this.postModel.description) {
+                    Toast('请把资料填写完整')
+                    return
+                }
+
                 try {
                     await api.questionDeal(this.postModel)
                     Toast('提交成功')
-                    this.$router.replace({name:'userCenter'})
+                    this.$router.replace({name: 'userCenter'})
                 } catch (e) {
                     Toast('提交失败')
 

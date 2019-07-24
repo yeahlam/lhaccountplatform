@@ -1,6 +1,6 @@
 <template>
 	<div class="message">
-
+		<div class="head-title" v-if="listData.length==0">暂无数据</div>
 		<div class="message-list" v-for="(item,index) in listData" :key="index">
 			<div class="head">
 				<div class="head-title">任务通知</div>

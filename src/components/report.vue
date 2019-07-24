@@ -123,6 +123,12 @@
                 picinput.click()
             },
             async submit() {
+
+                if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeId || !this.postModel.currentLocation) {
+                    Toast('请把资料填写完整')
+					return
+                }
+
                 try {
                     await api.submitQuestion(this.postModel)
                     Toast({
@@ -326,10 +332,12 @@
 				outline none
 				color #282828
 				width 100%
+
 		.phonelogo
 			.text
 				background url("../assets/phone.png") no-repeat left center
 				background-size 0.3rem 0.4rem
+
 		.submit
 			width 7.1rem
 			height 0.9rem
