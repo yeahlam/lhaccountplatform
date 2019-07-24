@@ -1,6 +1,7 @@
 import router from './router'
 import store from './store'
-import {getUserInfo, getUserDict} from './userInfo'
+import {getUserInfo, getUserDict, login} from './userInfo'
+
 let nocheck = ['login']
 
 router.beforeEach(async (to, from, next) => {
@@ -13,6 +14,7 @@ router.beforeEach(async (to, from, next) => {
     if (store.getters.getUserInfo.id) {
         next()
     } else {
+        await login()
         await getUserInfo()
         await getUserDict()
         next()

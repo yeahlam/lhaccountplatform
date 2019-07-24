@@ -43,3 +43,6 @@ export async function dealConfirm(body) {
 export async function buildings() {
     return await http.get(urls.buildings)
 }
+export async function login() {
+    return await http.get(urls.login)
+}
