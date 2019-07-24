@@ -1,22 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import search from './components/search'
-import news from './components/news'
-import home from './components/home'
-import report from './components/report'
-import video from './components/video'
-import userCenter from './components/userCenter'
-import collection from './components/collection'
-import applyList from './components/applyList'
-import userinfo from './components/userinfo'
-import message from './components/message'
-import problemclass from './components/problemclass'
-import infodetail from './components/infodetail'
-import complete from './components/complete'
-import login from './components/login'
-import txmap from './components/txmap'
-import txmap2 from './components/txmap2'
-
 
 
 Vue.use(Router)
@@ -28,83 +11,83 @@ export default new Router({
         {
             path: '/',
             name: 'home',
-            component:() => import(/* webpackChunkName: "group-foo" */ './components/home.vue'),
+            component:() => import('./components/home.vue'),
             redirect:'userCenter'
         },
         {
             path: '/news',
             name: 'news',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/news.vue')
+            component: () => import('./components/news.vue')
         },
         {
             path: '/video',
             name: 'video',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/video.vue')
+            component: () => import('./components/video.vue')
         },
         {
             path: '/search',
             name: 'search',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/search.vue')
+            component: () => import('./components/search.vue')
         },
         {
             path: '/report',
             name: 'report',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/report.vue')
+            component: () => import('./components/report.vue')
         },
         {
             path: '/userCenter',
             name: 'userCenter',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/userCenter.vue')
+            component: () => import('./components/userCenter.vue')
         },
         {
             path: '/collection',
             name: 'collection',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/collection.vue')
+            component: () => import('./components/collection.vue')
         },
         {
             path: '/applyList',
             name: 'applyList',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/applyList.vue')
+            component: () => import('./components/applyList.vue')
         },
         {
             path: '/userinfo',
             name: 'userinfo',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/userinfo.vue')
+            component: () => import('./components/userinfo.vue')
         },
         {
             path: '/message',
             name: 'message',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/message.vue')
+            component: () => import('./components/message.vue')
         },
         {
             path: '/problemclass',
             name: 'problemclass',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/problemclass.vue')
+            component: () => import('./components/problemclass.vue')
         },
         {
             path: '/infodetail',
             name: 'infodetail',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/infodetail.vue')
+            component: () => import('./components/infodetail.vue')
         },
         {
             path: '/complete',
             name: 'complete',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/complete.vue')
+            component: () => import('./components/complete.vue')
         },
         // {
         //     path: '/login',
         //     name: 'login',
-        //     component: () => import(/* webpackChunkName: "group-foo" */ './components/login.vue')
+        //     component: () => import('./components/login.vue')
         // },
         {
             path: '/txmap',
             name: 'txmap',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/txmap.vue')
+            component: () => import('./components/txmap.vue')
         },
         {
             path: '/txmap2',
             name: 'txmap2',
-            component: () => import(/* webpackChunkName: "group-foo" */ './components/txmap2.vue')
+            component: () => import('./components/txmap2.vue')
         }
     ]
 })
