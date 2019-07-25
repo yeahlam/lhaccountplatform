@@ -1,10 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="UTF-8">
-	<title>Title</title>
+	<meta charset="utf-8"/>
+	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width"/>
+	<title>注册</title>
+	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+	<link type="text/css" href="css/style.css" rel="stylesheet"/>
 </head>
-<body>
-	登录页登录页登录页登录页登录页登录页登录页登录页登录页登录页
+<div class="main">
+	<div class="login">
+		<img class="logo" src="images/logo.jpg">
+		<div class="background">
+			<div class="head">
+				<div class="photo">
+					<img class="" src="images/nophoto.png">
+					<input type="file" style="" id="uploadImg">
+				</div>
+				<div class="head-input">
+					<div class="section"><label>姓名</label><input id="name" placeholder="请输入真实姓名"/></div>
+					<div class="section"><label>电话</label><input id="phoneNumber" placeholder="请输入电话号码"/></div>
+				</div>
+			</div>
+			<div class="apply-info">
+				<div class="apply-title">职位选择</div>
+				<div class="apply-type">
+					<div class="login-type on" data-value="2">管理员</div>
+					<div class="login-type " data-value="3"> 网格员</div>
+					<div class="login-type " data-value="4">楼长</div>
+				</div>
+			</div>
+			<!--      <div class="apply-info">-->
+			<!--        <div class="apply-title">管辖区域</div>-->
+			<!--        <input class="apply-input" id="area" placeholder="请输入"/>-->
+			<!--      </div>-->
+			<div class="apply-info">
+				<div class="apply-title">证件号码</div>
+				<input class="apply-input" id="idNumber" placeholder="请输入"/>
+			</div>
+			<!--      <div class="apply-info">-->
+			<!--        <div class="apply-title">紧急联系人</div>-->
+			<!--        <input class="apply-input" id="emergencyFriendName" placeholder="请输入"/>-->
+			<!--      </div>-->
+			<!--      <div class="apply-info">-->
+			<!--        <div class="apply-title">联系人电话</div>-->
+			<!--        <input class="apply-input" id="emergencyFriendPhone" placeholder="请输入"/>-->
+			<!--      </div>-->
+			<div class="submit check">开始审核</div>
+
+		</div>
+
+
+	</div>
+
+</div>
+
+
+<!-- 通用提示弹窗 -->
+<div class="shadow" id="showAlert">
+	<div class="showAlert_panel">
+		<div class="showAlert_massage">提示语提示语提示语提示语提示语提示语提示语提示语提示语提示语</div>
+		<div class="showAlert_close close">确定</div>
+	</div>
+</div>
+<!-- 通用弹窗 end -->
+
+
 </body>
 </html>
+
+<script type="text/javascript">
+    function getQueryString(name) {
+        var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
+        var r = window.location.search.substr(1).match(reg);
+        if (r != null) return unescape(r[2]); return null;
+    }
+    //var tab_title;
+    $(document).ready(function () {
+        $("html").css("font-size", ($(window).width() > 750 ? 750 : $(window).width()) / 7.5);
+        var openId=getQueryString("openId");
+        var type = 2;
+        var pohotUrl = "";
+        $(".main").on("click", ".login-type", function () {
+            $(this).addClass("on").siblings().removeClass("on");
+            type = $(this).data("value");
+        });
+
+        $(".main").on("click", ".check", function () {
+            var arr = /^1[2-9][0-9]{9}$/;
+            var txt_name = $("#name").val();
+            var txt_phoneNumber = $("#phoneNumber").val();
+            var txt_idNumber = $("#idNumber").val();
+            if (txt_name.length == 0) {
+                showAlert("请输入您的姓名！");
+                return false;
+            }
+            if (txt_phoneNumber.length == 0) {
+                showAlert("请输入您的手机号码！");
+                return false;
+            }
+            if (!arr.test(txt_phoneNumber)) {
+                showAlert('请正确输入手机号码');
+                return false;
+            }
+            if (txt_idNumber.length == 0) {
+                showAlert("请输入您的身份证号！");
+                return false;
+            }
+            var obj = {
+                "name": txt_name,
+                "roleId": type,
+                "card": txt_idNumber,
+                "phoneNumber": txt_phoneNumber,
+                "pictureUrl": "sfsd.png",
+                "openId":openId
+            }
+            $.ajax({
+                contentType: "application/json",
+                url: "/wx/authenticate/submit",
+                data: JSON.stringify(obj),
+                type: "post",
+                dataType: "json",
+                success: function (res) {
+                    window.open("waiting.html", "_self");
+                    console.log('提交成功')
+                },
+                error: function (res) {
+                    console.log("提交失败")
+                }
+            });
+
+        });
+
+        $("#uploadImg").change(function () {
+            // $(".loadEffect").show();
+            var formFile = new FormData();
+            formFile.append("file", $("#uploadImg")[0].files[0]);
+            console.log(formFile)
+            $.ajax({
+                url: "/wx/upload/picture",
+                data: formFile,
+                type: "POST",
+                dataType: "json",
+                cache: false,     //上传文件无需缓存
+                processData: false,   //用于对data参数进行序列化处理 这里必须false
+                contentType: false,   //必须
+                success: function (res) {
+                    var photoSrc = res.data.pic;
+                    // $(".loadEffect").hide();
+                    alert('上传成功');
+                },
+                error: function (res) {
+                    console.log(res);
+                    alert('上传失败');
+                }
+            });
+        });
+
+
+        //关闭按钮
+        $('.close').click(function () {
+            $(this).parents(".shadow").removeClass("on");
+        });
+        //信息填写校验
+
+
+    });
+
+    function showAlert(info) {
+        $("#showAlert").addClass('on');
+        $(".showAlert_massage").text(info);
+    };
+</script>
