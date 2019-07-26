@@ -13,7 +13,7 @@
 		<div class="background">
 			<div class="head">
 				<div class="photo">
-					<img class="" src="images/nophoto.png">
+					<img id="headerImg" class="" src="images/nophoto.png">
 					<input type="file" style="" id="uploadImg">
 				</div>
 				<div class="head-input">
@@ -137,7 +137,7 @@
             formFile.append("file", $("#uploadImg")[0].files[0]);
             console.log(formFile)
             $.ajax({
-                url: "/wx/upload/picture",
+                url: "wx2/exchange/picture",
                 data: formFile,
                 type: "POST",
                 dataType: "json",
@@ -145,8 +145,9 @@
                 processData: false,   //用于对data参数进行序列化处理 这里必须false
                 contentType: false,   //必须
                 success: function (res) {
-                    var photoSrc = res.data.pic;
+                    var photoSrc = res.data.path;
                     // $(".loadEffect").hide();
+                    $('#headerImg').attr('src',photoSrc)
                     alert('上传成功');
                 },
                 error: function (res) {
