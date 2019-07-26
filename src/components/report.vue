@@ -9,10 +9,10 @@
 				</div>
 			</div>
 			<textarea class="detail" placeholder="（必填）请对爆料的问题进行描述。" v-model="description"></textarea>
-			<div class="hide_name">
-				<img src="">
-				<div>匿名投诉</div>
-			</div>
+<!--			<div class="hide_name">-->
+<!--				<img src="">-->
+<!--				<div>匿名投诉</div>-->
+<!--			</div>-->
 		</div>
 		<div class="photo">
 			<div class="photo-list">

@@ -88,7 +88,8 @@
         });
 
         $(".main").on("click", ".check", function () {
-            var arr = /^1[2-9][0-9]{9}$/;
+            var arr = /^[0-9]+$/;
+            var idReg = /^[0-9a-zA-Z]+$/;
             var txt_name = $("#name").val();
             var txt_phoneNumber = $("#phoneNumber").val();
             var txt_idNumber = $("#idNumber").val();
@@ -101,11 +102,11 @@
                 return false;
             }
             if (!arr.test(txt_phoneNumber)) {
-                showAlert('请正确输入手机号码');
+                showAlert('请正确输入号码');
                 return false;
             }
-            if (txt_idNumber.length == 0) {
-                showAlert("请输入您的身份证号！");
+            if (!idReg.test(txt_idNumber)) {
+                showAlert("请正确的身份证号！");
                 return false;
             }
             var obj = {

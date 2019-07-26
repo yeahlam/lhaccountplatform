@@ -123,11 +123,13 @@ img{width: 100%;vertical-align: middle;}
 }
 .login .background .head .photo img{
     position: absolute;
-    width:1.5rem;
-    height:1.96rem;
+    width:auto;
+    height:auto;
     display: block;
     left: 0;
     top: 0;
+    max-height: 100%;
+    max-width: 100%;
 }
 .login .background .head .photo input{
     position: absolute;
@@ -211,16 +213,16 @@ img{width: 100%;vertical-align: middle;}
     background-color: #fff;
 }
 ::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-    color:    #fff;
+    color:    #bbd7f1;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #fff;
+    color:    #bbd7f1;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #fff;
+    color:    #bbd7f1;
 }
 :-ms-input-placeholder { /* Internet Explorer 10-11 */
-    color:    #fff;
+    color:    #bbd7f1;
 }
 
 
@@ -411,7 +413,7 @@ img{width: 100%;vertical-align: middle;}
 .showAlert_massage{
     text-align: center;
     color: #333;
-    font-size: 0.28rem;
+    font-size: 22px;
     padding: 0.2rem 0 0.4rem;
 }
 .showAlert_close{
