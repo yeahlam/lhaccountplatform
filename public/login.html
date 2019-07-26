@@ -72,12 +72,14 @@
     function getQueryString(name) {
         var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)", "i");
         var r = window.location.search.substr(1).match(reg);
-        if (r != null) return unescape(r[2]); return null;
+        if (r != null) return unescape(r[2]);
+        return null;
     }
+
     //var tab_title;
     $(document).ready(function () {
         $("html").css("font-size", ($(window).width() > 750 ? 750 : $(window).width()) / 7.5);
-        var openId=getQueryString("openId");
+        var openId = getQueryString("openId");
         var type = 2;
         var pohotUrl = "";
         $(".main").on("click", ".login-type", function () {
@@ -111,8 +113,8 @@
                 "roleId": type,
                 "card": txt_idNumber,
                 "phoneNumber": txt_phoneNumber,
-                "pictureUrl": "sfsd.png",
-                "openId":openId
+                "pictureUrl": pohotUrl,
+                "openId": openId
             }
             $.ajax({
                 contentType: "application/json",
@@ -147,7 +149,8 @@
                 success: function (res) {
                     var photoSrc = res.data.path;
                     // $(".loadEffect").hide();
-                    $('#headerImg').attr('src',photoSrc)
+                    $('#headerImg').attr('src', photoSrc)
+                    pohotUrl = photoSrc
                     alert('上传成功');
                 },
                 error: function (res) {
