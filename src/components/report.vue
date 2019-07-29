@@ -17,7 +17,7 @@
 		<div class="photo">
 			<div class="photo-list">
 				<div class="photo-row" v-for="(item,index) in photoList" :key="index">
-					<img class="picture" :src="item">
+					<img class="picture" :src="IMGURL+item">
 					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
 				</div>
 				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
@@ -57,11 +57,13 @@
     import axios from 'axios'
     import url from '../urls'
     import txmap2 from './txmap2'
+    import {IMGURL} from "../config";
 
     export default {
         name: "report",
         data() {
             return {
+                IMGURL,
                 photoList: [],
                 showChoose: false, //是否显示类型选择
                 chooseType: {}, //选择类型

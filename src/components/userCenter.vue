@@ -7,7 +7,7 @@
 		<div class="userInfoCard" :class="[roleType]">
 			<div class="userInfoCardDecoration">{{userInfo.roleName}}</div>
 			<div class="photo">
-				<img :src=headerImg>
+				<img :src=IMGURL+headerImg>
 			</div>
 			<div class="userInfoTextBox">
 				<div class="name">{{userInfo.name}}</div>
@@ -84,12 +84,14 @@
 
 <script>
     import * as api from '../api'
+    import {IMGURL} from "../config";
 
     let defaultImg = require('../assets/nophoto.png')
     export default {
         name: "userCenter",
         data() {
             return {
+                IMGURL,
                 notice: {}
             }
         },

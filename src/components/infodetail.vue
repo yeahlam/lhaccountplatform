@@ -5,7 +5,7 @@
 			<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 				<!-- slides -->
 				<swiper-slide class="swiperItem" v-for="item in problemData.pictureUrl" :key="item">
-					<img :src="item" alt="">
+					<img :src="IMGURL+item" alt="">
 				</swiper-slide>
 
 				<!-- Optional controls -->
@@ -32,7 +32,7 @@
 				<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 					<!-- slides -->
 					<swiper-slide class="swiperItem" v-for="item in answerData.pictureUrl" :key="item">
-						<img :src="item" alt="">
+						<img :src="IMGURL+item" alt="">
 					</swiper-slide>
 
 					<!-- Optional controls -->
@@ -74,6 +74,7 @@
     import 'swiper/dist/css/swiper.css'
     import {swiper, swiperSlide} from 'vue-awesome-swiper'
     import * as api from '../api'
+    import {IMGURL} from "../config";
 
     export default {
         name: "infodetail",
@@ -83,6 +84,7 @@
         },
         data() {
             return {
+                IMGURL,
                 swiperOption: {
                     pagination: {
                         el: '.swiper-pagination',

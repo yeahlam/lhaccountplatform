@@ -150,7 +150,7 @@
                 success: function (res) {
                     var photoSrc = res.data.path;
                     // $(".loadEffect").hide();
-                    $('#headerImg').attr('src', photoSrc)
+                    $('#headerImg').attr('src', '/admin-console/' + photoSrc)
                     pohotUrl = photoSrc
                     alert('上传成功');
                 },
