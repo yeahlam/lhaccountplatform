@@ -7,6 +7,12 @@ let http = axios.create({
 })
 http.interceptors.request.use(
     req => {
+        if (['get'].includes(req.method)) {
+            req.params = {
+                _t: Date.parse(new Date())/1000,
+                ...req.params
+            }
+        }
         Indicator.open({
             text: '加载中...',
             spinnerType: 'fading-circle'
