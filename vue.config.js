@@ -8,5 +8,6 @@ module.exports = {
         proxy: 'http://20q12h9711.iok.la',
         public: 'dev.iok.la:9000'
     },
-    productionSourceMap: true
+    productionSourceMap: false,
+    publicPath: process.env.NODE_ENV === 'production' ? './' : '/'
 }

@@ -1,2 +1,2 @@
-const IMGURL = '/admin-console/'
+const IMGURL = ''
 export {IMGURL}

@@ -119,7 +119,7 @@
             }
             $.ajax({
                 contentType: "application/json",
-                url: "/wx/authenticate/submit",
+                url: "./wx/authenticate/submit",
                 data: JSON.stringify(obj),
                 type: "post",
                 dataType: "json",
@@ -140,7 +140,7 @@
             formFile.append("file", $("#uploadImg")[0].files[0]);
             console.log(formFile)
             $.ajax({
-                url: "wx2/exchange/picture",
+                url: "./wx2/exchange/picture",
                 data: formFile,
                 type: "POST",
                 dataType: "json",
