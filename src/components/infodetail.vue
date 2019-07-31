@@ -143,7 +143,7 @@
             },
             async receiveTask() {
                 try {
-                    api.exchangeStatus({
+                    await api.exchangeStatus({
                         questionNumber: this.$route.query.problemNumber
                     })
                     Toast('接收任务成功')
