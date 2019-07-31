@@ -123,8 +123,8 @@ img{width: 100%;vertical-align: middle;}
 }
 .login .background .head .photo img{
     position: absolute;
-    width:auto;
-    height:auto;
+    width:1.5rem;
+    height:1.96rem;
     display: block;
     left: 0;
     top: 0;
