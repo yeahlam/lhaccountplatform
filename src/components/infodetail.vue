@@ -147,8 +147,9 @@
                         questionNumber: this.$route.query.problemNumber
                     })
                     Toast('接收任务成功')
-                    await this.getStatus()
-                    await this.getDetail()
+                    this.$router.push({name: 'complete', query: {problemNumber: this.$route.query.problemNumber}})
+                    // await this.getStatus()
+                    // await this.getDetail()
                 } catch (e) {
                     Toast('接收任务失败')
                 }
