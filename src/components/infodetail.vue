@@ -27,7 +27,7 @@
 			</div>
 
 		</div>
-		<template v-if="realStatus==2||realStatus==3">
+		<template v-if="answerData&&answerData.description">
 			<div class="swiperBox" v-if="answerData.pictureUrl">
 				<swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
 					<!-- slides -->
@@ -123,7 +123,7 @@
                         questionNumber: this.$route.query.problemNumber
                     })
                     Toast('提交成功')
-					this.$router.replace({name:'userCenter'})
+                    this.$router.replace({name: 'userCenter'})
                     // await this.getStatus()
                     // await this.getDetail()
                 } catch (e) {
