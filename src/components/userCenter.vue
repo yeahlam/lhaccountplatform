@@ -11,7 +11,7 @@
 			</div>
 			<div class="userInfoTextBox">
 				<div class="name">{{userInfo.name}}</div>
-				<div class="usertitle">{{userInfo.realName?userInfo.realName:"用户"}}</div>
+				<div class="usertitle">用户</div>
 				<div class="myScore">我的积分
 					<span class="score">{{userInfo.integration}}</span>
 				</div>
