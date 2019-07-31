@@ -31,7 +31,7 @@
 				</div>
 				<div v-if="isManager" class="tab-bar-item center-item">
 					<div class="num">
-						<img class="gridLogo" src="../assets/logo.png" alt="">
+						<img class="gridLogo" src="../assets/guanli.png" alt="">
 					</div>
 					<div class="item-name">网格管理</div>
 				</div>
