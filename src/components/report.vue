@@ -9,10 +9,10 @@
 				</div>
 			</div>
 			<textarea class="detail" placeholder="（必填）请对爆料的问题进行描述。" v-model="description"></textarea>
-<!--			<div class="hide_name">-->
-<!--				<img src="">-->
-<!--				<div>匿名投诉</div>-->
-<!--			</div>-->
+			<!--			<div class="hide_name">-->
+			<!--				<img src="">-->
+			<!--				<div>匿名投诉</div>-->
+			<!--			</div>-->
 		</div>
 		<div class="photo">
 			<div class="photo-list">
@@ -128,15 +128,23 @@
 
                 if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeId || !this.postModel.currentLocation) {
                     Toast('请把资料填写完整')
-					return
+                    return
                 }
 
                 try {
-                    await api.submitQuestion(this.postModel)
-                    Toast({
-                        message: '提交成功'
-                    });
-                    this.$router.replace({name: 'userCenter'})
+                    let res = await api.submitQuestion(this.postModel)
+                    if (res.data.code == -1) {
+                        Toast({
+                            message: res.data.msg
+                        });
+                    } else {
+                        Toast({
+                            message: '提交成功'
+                        });
+                        this.$router.replace({name: 'userCenter'})
+
+                    }
+
                 } catch (e) {
                     Toast('提交失败');
                 }
@@ -158,6 +166,8 @@
 
             let res = await api.buildings()
             this.buildingsList = res.data.data
+            this.chooseBuilding = res.data.data[0].id
+
         }
     }
 </script>
