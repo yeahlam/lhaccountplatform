@@ -3,7 +3,7 @@
 <head>
 	<meta charset="utf-8"/>
 	<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, user-scalable=0, width=device-width"/>
-	<title>注册</title>
+	<title>身份认证</title>
 	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
 	<link type="text/css" href="css/style.css" rel="stylesheet"/>
 </head>
@@ -22,11 +22,11 @@
 				</div>
 			</div>
 			<div class="apply-info">
-				<div class="apply-title">职位选择</div>
+				<div class="apply-title">角色选择</div>
 				<div class="apply-type">
-					<div class="login-type on" data-value="2">管理员</div>
+					<div class="login-type " data-value="2">管理员</div>
 					<div class="login-type " data-value="3"> 网格员</div>
-					<div class="login-type " data-value="4">楼长</div>
+					<div class="login-type on" data-value="4">楼长</div>
 				</div>
 			</div>
 			<!--      <div class="apply-info">-->
@@ -45,7 +45,7 @@
 			<!--        <div class="apply-title">联系人电话</div>-->
 			<!--        <input class="apply-input" id="emergencyFriendPhone" placeholder="请输入"/>-->
 			<!--      </div>-->
-			<div class="submit check">开始审核</div>
+			<div class="submit check">申请认证</div>
 
 		</div>
 
@@ -57,12 +57,21 @@
 
 <!-- 通用提示弹窗 -->
 <div class="shadow" id="showAlert">
+	<div class="shadow-bg"></div>
 	<div class="showAlert_panel">
 		<div class="showAlert_massage">提示语提示语提示语提示语提示语提示语提示语提示语提示语提示语</div>
 		<div class="showAlert_close close">确定</div>
 	</div>
 </div>
 <!-- 通用弹窗 end -->
+
+<div class="shadow" id="tips">
+	<div class="shadow-bg"></div>
+	<div class="showAlert_panel">
+		<div class="tips_message">已提交信息，待审核</div>
+	</div>
+</div>
+
 
 
 </body>
@@ -80,7 +89,7 @@
     $(document).ready(function () {
         $("html").css("font-size", ($(window).width() > 750 ? 750 : $(window).width()) / 7.5);
         var openId = getQueryString("openId");
-        var type = 2;
+        var type = 4;
         var pohotUrl = "";
         $(".main").on("click", ".login-type", function () {
             $(this).addClass("on").siblings().removeClass("on");
@@ -124,11 +133,15 @@
                 type: "post",
                 dataType: "json",
                 success: function (res) {
-                    window.open("waiting.html", "_self");
-                    console.log('提交成功')
+					if(res.code==-1){
+						showTips(res.msg);
+					}else {
+						showTips("已提交信息，待审核");
+					}
+
                 },
                 error: function (res) {
-                    console.log("提交失败")
+					showTips("提交失败");
                 }
             });
 
@@ -175,4 +188,8 @@
         $("#showAlert").addClass('on');
         $(".showAlert_massage").text(info);
     };
+    function showTips(info) {
+		$("#tips").addClass('on');
+		$(".tips_message").text(info);
+	}
 </script>
