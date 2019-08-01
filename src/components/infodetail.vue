@@ -63,7 +63,7 @@
 			<div class="finished" @click="receiveTask">接收任务</div>
 		</div>
 		<div class="btn centerbtnbox" v-show="isLZ&&realStatus==1">
-			<div class="finished" @click="gotoComplete">完成任务</div>
+			<div class="finished" @click="gotoComplete">处置任务</div>
 		</div>
 	</div>
 

@@ -25,4 +25,5 @@ export default {
     dealConfirm: `./${wx}/operate/question-deal-confirm`,
     buildings: `./${wx}/basic-info/buildings`,
     login: `./${wx}/basic-info/login`,
+    exchangePicture: `./${wx}/upload/exchange-picture`,
 }

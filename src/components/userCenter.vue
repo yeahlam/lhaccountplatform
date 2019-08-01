@@ -6,12 +6,13 @@
 		</div>
 		<div class="userInfoCard" :class="[roleType]">
 			<div class="userInfoCardDecoration">{{userInfo.roleName}}</div>
-			<div class="photo">
+			<div class="photo" @click="headerClick">
 				<img :src=IMGURL+headerImg>
+				<input type="file" ref="headerInput" style="display: none;" @click="inputChange">
 			</div>
 			<div class="userInfoTextBox">
 				<div class="name">{{userInfo.name}}</div>
-				<div class="usertitle">用户</div>
+				<div class="usertitle"></div>
 				<div class="myScore">我的积分
 					<span class="score">{{userInfo.integration}}</span>
 				</div>
@@ -85,8 +86,12 @@
 <script>
     import * as api from '../api'
     import {IMGURL} from "../config";
+    import axios from 'axios'
 
     let defaultImg = require('../assets/nophoto.png')
+    import url from '../urls'
+    import {Toast} from 'mint-ui';
+
     export default {
         name: "userCenter",
         data() {
@@ -125,6 +130,28 @@
             }
         },
         methods: {
+            async inputChange() {
+
+                let picinput = this.$refs.headerInput
+
+                let formdata = new FormData();// 创建form对象
+                formdata.append('file', picinput.files[0]);
+                try {
+                    let res = await axios.post(url.exchangePicture, formdata, {
+                        headers: {'Content-Type': 'multipart/form-data'}
+                    })
+                    this.userInfo.phoneUrl = res.data.data.path
+                    Toast('上传成功')
+
+                } catch (e) {
+                    Toast('上传失败')
+                }
+                picinput.value = ''
+
+            },
+            headerClick() {
+                this.$refs.headerInput.click()
+            },
             message() {
             },
             async getstatisticsNotice() {
