@@ -88,6 +88,11 @@ export default new Router({
             path: '/txmap2',
             name: 'txmap2',
             component: () => import('./components/txmap2.vue')
+        },
+        {
+            path: '/shop',
+            name: 'shop',
+            component: () => import('./components/shop.vue')
         }
     ]
 })

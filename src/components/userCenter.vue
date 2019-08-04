@@ -53,7 +53,7 @@
 				<div class="navigation-title">问题处置情况</div>
 				<div class="arror-right"></div>
 			</div>
-			<div class="navigation-item" v-if="isLZ">
+			<div class="navigation-item" v-if="isLZ" @click="gotoshop">
 				<div class="icon"><img src="../assets/scorShop.png"></div>
 				<div class="navigation-title">积分商城</div>
 				<div class="arror-right"></div>
@@ -167,8 +167,10 @@
             },
             gotoreport() {
                 this.$router.push({name: 'report'})
-
-            }
+            },
+			gotoshop() {
+				this.$router.push({name: 'shop'})
+			}
         },
         async mounted() {
             //组建一进入就好u会调用这个方法
