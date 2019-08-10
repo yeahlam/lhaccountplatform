@@ -93,6 +93,11 @@ export default new Router({
             path: '/shop',
             name: 'shop',
             component: () => import('./components/shop.vue')
+        },
+        {
+            path: '/allFile',
+            name: 'allFile',
+            component: () => import('./components/allFile.vue')
         }
     ]
 })

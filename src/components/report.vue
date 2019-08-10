@@ -1,52 +1,107 @@
 <template>
 	<div class="report">
-		<div class="header">
-			<div class="type">
-				<div class="type_title">问题类型</div>
-				<div v-if="!chooseType.name" class="type_text" @click="chooseQuestionType">请选择</div>
-				<div v-if="chooseType.name" class="type_text haveChoose" @click="chooseQuestionType">
-					{{chooseType.name}}
-				</div>
-			</div>
-			<textarea class="detail" placeholder="（必填）请对爆料的问题进行描述。" v-model="description"></textarea>
-			<!--			<div class="hide_name">-->
-			<!--				<img src="">-->
-			<!--				<div>匿名投诉</div>-->
-			<!--			</div>-->
-		</div>
+<!--		<div class="header">-->
+<!--			<div class="type">-->
+<!--				<div class="type_title">问题类型</div>-->
+<!--				<div v-if="!chooseType.name" class="type_text" @click="chooseQuestionType">请选择</div>-->
+<!--				<div v-if="chooseType.name" class="type_text haveChoose" @click="chooseQuestionType">-->
+<!--					{{chooseType.name}}-->
+<!--				</div>-->
+<!--			</div>-->
+<!--			<textarea class="detail" placeholder="（必填）请对爆料的问题进行描述。" v-model="description"></textarea>-->
+<!--			&lt;!&ndash;			<div class="hide_name">&ndash;&gt;-->
+<!--			&lt;!&ndash;				<img src="">&ndash;&gt;-->
+<!--			&lt;!&ndash;				<div>匿名投诉</div>&ndash;&gt;-->
+<!--			&lt;!&ndash;			</div>&ndash;&gt;-->
+<!--		</div>-->
 		<div class="photo">
-			<div class="photo-list">
-				<div class="photo-row" v-for="(item,index) in photoList" :key="index">
-					<img class="picture" :src="IMGURL+item">
-					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
-				</div>
-				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
-					<img class="picture" src="../assets/add_picture.png">
+			<div class="photo-icon" @click="choosePic">
+                <div class="photo-box">
+                    <img src="../assets/photo.png">
 					<input type="file" style="display: none" ref="picinput" @change="inputChange">
-				</div>
-
+                </div>
+                <div class="photo-box" @click="choosePic">
+                    <img src="../assets/add_picture.png">
+                    <input type="file" style="display: none" ref="picinput" @change="inputChange">
+                </div>
 			</div>
-			<div class="count">[{{photoList.length}}/5]</div>
+			<div class="photo-list">
+                <div class="photo-row" v-for="(item,index) in photoList" :key="index">
+                    <img class="picture" :src="IMGURL+item">
+                    <img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
+                </div>
+			</div>
 		</div>
-		<div class="tips">*点击“+”添加图片，点击“×”可删除图片，最多上传5张图片</div>
-		<div class="location">
+		<div class="report-section">
+			<div class="section-title">事项类型第1级</div>
+			<select  placeholder="选择事项类型第1级" v-model="chooseProblemPrimary" @change="changeProblemPrimary($event)">
+				<option value="-1">请选择</option>
+				<option :key="index" v-for="(item,index) in problemListPrimary" :value="item.id">{{item.name}}</option>
+			</select>
+		</div>
+		<div class="report-section">
+			<div class="section-title">事项类型第2级</div>
+			<select  placeholder="选择事项类型第2级" v-model="chooseProblem" @change="changeProblem($event)">
+				<option value="-1">请选择</option>
+				<option :key="index" v-for="(item,index) in problemList" :value="item.id">{{item.name}}</option>
+			</select>
+		</div>
+		<div class="report-section">
 			<div class="text">{{address?address:'点击右侧按钮进入地图进行定位'}}</div>
 			<div class="get" @click="isShowMap=true">定位</div>
 		</div>
-		<div class="tips">*请详细描述方案发生位置，以便我们更快地核实处理案件</div>
-		<div class="phone phonelogo">
-			<input class="text" placeholder="请填写您的手机号码以便反馈进度" v-model="phone">
-		</div>
-		<div class="tips">*联系方式将严格保密</div>
-		<div class="phone">
-			<select class="text" placeholder="选择具体楼层" v-model="chooseBuilding">
+<!--		<div class="report-section">-->
+<!--			<div class="section-title">事发场所</div>-->
+<!--			<input class="shortInput" />-->
+<!--			<img src="../assets/report-search.png">-->
+<!--			<span  @click="bulidingSelect">点击选择</span>-->
+<!--		</div>-->
+		<div class="report-section">
+			<div class="section-title">事发场所</div>
+			<select  placeholder="选择具体楼层" v-model="chooseBuilding">
 				<option :key="index" v-for="(item,index) in buildingsList" :value="item.id">{{item.name}}</option>
 			</select>
 		</div>
-		<div class="tips">*请选择具体建筑</div>
-		<div class="submit" @click="submit">提交</div>
+		<div class="report-section">
+			<div class="section-title">所在部位</div>
+			<input class="longInput"  v-model="questionPosition" />
+		</div>
+		<div class="textarea-section">
+			<div class="section-title">问题描述</div>
+			<textarea  v-model="description"></textarea>
+		</div>
+
+<!--		<div class="location">-->
+<!--			<div class="text">{{address?address:'点击右侧按钮进入地图进行定位'}}</div>-->
+<!--			<div class="get" @click="isShowMap=true">定位</div>-->
+<!--		</div>-->
+<!--		<div class="tips">*请详细描述方案发生位置，以便我们更快地核实处理案件</div>-->
+<!--		<div class="phone phonelogo">-->
+<!--			<input class="text" placeholder="请填写您的手机号码以便反馈进度" v-model="phone">-->
+<!--		</div>-->
+<!--		<div class="tips">*联系方式将严格保密</div>-->
+<!--		<div class="phone">-->
+<!--			<select class="text" placeholder="选择具体楼层" v-model="chooseBuilding">-->
+<!--				<option :key="index" v-for="(item,index) in buildingsList" :value="item.id">{{item.name}}</option>-->
+<!--			</select>-->
+<!--		</div>-->
+<!--		<div class="tips">*请选择具体建筑</div>-->
+		<div class="submit" @click="submit">提交任务</div>
 		<questionChoose class="questionChoose" v-if="showChoose" @select="typeSelect"></questionChoose>
 		<txmap2 v-show="isShowMap" @selectMap="selectMap"></txmap2>
+
+		<div class="tips" v-if="isShowBuliding">
+			<div class="tips-bg"></div>
+			<div class="tips-buliding">
+				<select class="tips-select">
+					<option>区域1</option>
+					<option>2</option>
+				</select>
+				<div class="tips-submit" @click="submitBuliding">确定</div>
+			</div>
+
+		</div>
+
 	</div>
 </template>
 
@@ -68,11 +123,18 @@
                 showChoose: false, //是否显示类型选择
                 chooseType: {}, //选择类型
                 description: '', //问题描述
+				questionPosition:'',//所在部位
                 phone: '', //手机号码
                 isShowMap: false,
                 address: '',//地址
                 buildingsList: [], //楼层列表
-                chooseBuilding: ''
+                chooseBuilding: '',
+				isShowBuliding:false,
+				problemListPrimary:[],
+				problemList:[],
+				chooseProblemPrimary:'-1',
+				chooseProblem:'-1',
+				pid:0,
             }
         },
         components: {
@@ -85,9 +147,10 @@
                 return {
                     "description": this.description,
                     "buildingId": this.chooseBuilding,
-                    "questionTypeId": this.chooseType.type,
+                    "questionTypeId": this.chooseProblem,
                     "currentLocation": this.address,
-                    "pictureUrl": this.photoList
+                    "pictureUrl": this.photoList,
+					"questionPosition":this.questionPosition
                 }
 
             }
@@ -97,10 +160,14 @@
             selectMap(data) {
                 this.isShowMap = false
                 this.address = data.poiaddress
-
             },
+			bulidingSelect(){
+				this.isShowBuliding=true
+			},
+			submitBuliding(){
+				this.isShowBuliding=false
+			},
             async inputChange() {
-
                 let picinput = this.$refs.picinput
                 if (this.photoList.length >= 5) {
                     picinput.value = ''
@@ -125,12 +192,11 @@
                 picinput.click()
             },
             async submit() {
-
-                if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeId || !this.postModel.currentLocation) {
+            	console.log(this.postModel)
+                if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeId || !this.postModel.currentLocation || !this.postModel.questionPosition) {
                     Toast('请把资料填写完整')
                     return
                 }
-
                 try {
                     let res = await api.submitQuestion(this.postModel)
                     if (res.data.code == -1) {
@@ -158,16 +224,54 @@
             },
             delpic(index) {
                 this.photoList.splice(index, 1)
-            }
+            },
+			//获取问题列表
+			async getProblem() {
+				let res = await api.getQuestionType(this.pid)
+				if(this.pid==0){
+					this.problemListPrimary = res.data.data
+
+					//this.chooseProblemPrimary=res.data.data.id
+					//this.pid=res.data.data[0].id
+				}else{
+					this.problemList = res.data.data
+					this.chooseProblem='-1'
+					console.log(this.problemList)
+					//this.chooseProblem=res.data.data.id
+				}
+
+				console.log(res.data)
+			},
+			//选择问题
+			changeProblemPrimary(event) {
+            	let value=event.target.value
+				console.log(value)
+				if(value=='-1'){
+					this.problemList = []
+				}else{
+					this.pid=value
+					this.chooseProblem=value
+					this.getProblem(this.pid)
+
+				}
+			},
+			//二级问题选择
+			changeProblem(event) {
+				let value=event.target.value
+				this.chooseProblem=value
+			},
+			async getBuildings() {
+				let res = await api.buildings()
+				this.buildingsList = res.data.data
+				this.chooseBuilding = res.data.data[0].id
+				console.log(res.data)
+			}
         },
         async mounted() {
             //组建一进入就好u会调用这个方法
             document.title = '问题提交'
-
-            let res = await api.buildings()
-            this.buildingsList = res.data.data
-            this.chooseBuilding = res.data.data[0].id
-
+			this.getProblem()
+			this.getBuildings()
         }
     }
 </script>
@@ -183,8 +287,6 @@
 		z-index: 1
 
 	.report
-		min-height 100vh
-		background-color #f0f0f0
 
 		.header
 			height 3.5rem
@@ -232,66 +334,173 @@
 			align-items center
 			padding-right 0.28rem
 			margin-top 0.22rem
-
 			img
 				width 0.24rem
 				height 0.24rem
 				background-color black
-
 			div
 				font-size 0.28rem
 				line-height 0.3rem
 				padding-left 0.14rem
-
 		.photo-row:last-child
 			margin-right 0
-
 		.photo
-			background-color #fff
-			width 100%
-			padding-top 0.3rem
-
-		.photo-list
+			margin 0.2rem 0.2rem 0.2rem
+			border 2px solid #7c8ca3
+			border-radius 0.1rem
+			display flex
+			align-items center
+			justify-content space-between
+			height 1.66rem
+			.photo-icon
+				width 1.1rem
+				padding 0 0.3rem
+				.photo-box
+					width 1.1rem
+					height 0.58rem
+					margin 0.1rem 0
+					img
+						width 100%
+						height 100%
+			.photo-list
+				overflow-x auto
+				width calc(100% - 1.6rem)
+				white-space nowrap
+				.photo-row
+					position relative
+					width 1.5rem
+					height 1.14rem
+					float left
+					margin-right 0.2rem
+					img.picture
+						display block
+						width 1.5rem
+						height 1.14rem
+						position absolute
+						top 0
+						left 0
+					img.close-right
+						display block
+						width 0.42rem
+						height 0.42rem
+						position absolute
+						top 0
+						right 0
+		.report-section
+			margin 0 0.2rem 0.2rem
 			overflow hidden
-			margin 0 auto
-			padding 0.1rem
-
-		.photo-row
-			position relative
-			width 1.2rem
-			height 1.64rem
-			float left
-			margin-right: 0.1rem
-
-			img.picture
+			.text
+				font-size 0.2rem
+				color #333
+				height 0.9rem
+				line-height .9rem
+				color #282828
+				overflow: hidden
+				text-overflow ellipsis
+				width calc(100% - 1rem)
+				white-space: nowrap;
+				float left
+				background-color #f5f5f5
+				border-radius 0.1rem 0 0 0.1rem
+			.get
+				line-height 0.9rem
+				height 0.9rem
+				font-size 0.2rem
+				color #2881e5
+				float right
+				width 1rem
+				text-align center
+				background-color #f5f5f5
+				border-radius 0 0.1rem  0.1rem 0
+			span
 				display block
-				width 1.2rem
-				height 1.64rem
-				position absolute
-				top 0
-				left 0
-
-			img.close-right
+				width 1.5rem
+				height 0.9rem
+				line-height 0.9rem
+				font-size 0.2rem
+				color #333
+				float left
+				text-align center
+			img
+				width 0.5rem
+				height 0.9rem
+				display  block
+				float left
+				margin-left 0.2rem
+			.shortInput
 				display block
-				width 0.42rem
-				height 0.42rem
-				position absolute
-				top 0
-				right 0
+				float left
+				height 0.9rem
+				line-height 0.9rem
+				width calc(100% - 4.2rem)
+				border 0
+				background-color #f5f5f5
+				font-size 0.2rem
+				border-radius 0 0.1rem 0.1rem 0
+				box-sizing border-box
+				padding-left 0.3rem
+			.longInput
+				display block
+				float left
+				height 0.9rem
+				line-height 0.9rem
+				width calc(100% - 1.9rem)
+				border 0
+				background-color #f5f5f5
+				font-size 0.2rem
+				border-radius 0 0.1rem 0.1rem 0
+				box-sizing border-box
+				padding-left 0.3rem
+			select
+				display block
+				float left
+				height 0.9rem
+				line-height 0.9rem
+				width calc(100% - 1.9rem)
+				border 0
+				background-color #f5f5f5
+				font-size 0.2rem
+				border-radius 0 0.1rem 0.1rem 0
+				box-sizing border-box
+				padding-left 0.3rem
 
-		.count
-			text-align right
-			padding 0.48rem 0.2rem 0.12rem 0
-			font-size 0.28rem
-			color #666
+			.section-title
+				width 1.9rem
+				height 0.9rem
+				border-radius 0.1rem
+				background-color #e6e6e6
+				color #333
+				font-size 0.2rem
+				line-height 0.9rem
+				text-align center
+				float left
 
-		.tips
-			font-size 0.24rem
-			color #808080
-			line-height 0.24rem
-			padding 0.2rem 0rem 0.3rem 0.12rem
-			text-align left
 
+		.textarea-section
+			margin 0 0.2rem 0.2rem
+			overflow hidden
+			textarea
+				display block
+				float left
+				height 2.9rem
+				line-height 0.9rem
+				width calc(100% - 1.9rem)
+				border 0
+				background-color #f5f5f5
+				font-size 0.2rem
+				border-radius 0 0.1rem 0.1rem 0
+				box-sizing border-box
+				padding-left 0.3rem
+			.section-title
+				width 1.9rem
+				height 2.9rem
+				border-radius 0.1rem
+				background-color #e6e6e6
+				color #333
+				font-size 0.2rem
+				line-height 2.9rem
+				text-align center
+				float left
 		.location
 			background-color #fff
 			height 1.1rem
@@ -302,25 +511,7 @@
 			padding 0 1rem 0 0.12rem
 			box-sizing border-box
 
-			.text
-				font-size 0.32rem
-				color #282828
-				background url("../assets/location.png") no-repeat left center
-				background-size 0.3rem 0.4rem
-				height 0.42rem
-				line-height 0.42rem
-				padding-left 0.42rem
-				color #282828
-				overflow: hidden
-				text-overflow ellipsis
-				width: 5rem
-				white-space: nowrap;
 
-			.get
-				line-height 0.42rem
-				height 0.42rem
-				font-size 0.32rem
-				color #2881e5
 
 		.phone
 			background-color #fff
@@ -356,10 +547,45 @@
 			line-height 0.9rem
 			font-size 0.36rem
 			color #fff
-			background-color #00204e
+			background-color #fe7612
 			border-radius 0.1rem
 			text-align center
 			margin 0.1rem auto 0
 
-
+		.tips
+			.tips-bg
+				background-color rgba(0,0,0,0.7)
+				width 100vw
+				height 100vh
+				position fixed
+				top 0
+				left 0
+			.tips-buliding
+				position fixed
+				left 50%
+				top 50%
+				transform translate(-50% , -50%)
+				background-color #ffffff
+				border-radius 0.1rem
+				padding 0.5rem 0.2rem
+				select.tips-select
+					display block
+					height 0.9rem
+					line-height 0.9rem
+					width 80vw
+					border 0
+					background-color #f5f5f5
+					font-size 0.2rem
+					border-radius 0.1rem
+					margin 0 auto 0.2rem
+ 				.tips-submit
+					width 80vw
+					height 0.9rem
+					line-height 0.9rem
+					font-size 0.36rem
+					color #fff
+					background-color #fe7612
+					border-radius 0.1rem
+					text-align center
+					margin 0 auto 0
 </style>

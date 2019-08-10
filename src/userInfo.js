@@ -8,8 +8,8 @@ export async function getUserInfo() {
 }
 
 export async function getUserDict() {
-    let res = await http.get(urls.roles)
-    store.commit('setUserDict', res.data.data)
+    // let res = await http.get(urls.roles)
+    // store.commit('setUserDict', res.data.data)
 }
 
 export async function login() {

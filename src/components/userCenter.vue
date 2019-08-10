@@ -18,23 +18,21 @@
 				</div>
 			</div>
 			<div class="tab-bar">
-				<div v-if="isManager" class="tab-bar-item" @click="gotoApplyList">
-					<div class="num">{{notice.noticeNum}}</div>
-					<div class="item-name">申请通知</div>
+				<div class="tab-bar-item" @click="gotoMessage">
+					<div class="num">{{notice.waitDealNum}}</div>
+					<div class="item-name">待办任务</div>
 				</div>
-				<div v-if="!isManager" class="tab-bar-item" @click="gotoApplyMessage">
-					<div class="num">{{notice.noticeNum}}</div>
-					<div class="item-name">通知</div>
-				</div>
-				<div v-if="!isManager" class="tab-bar-item center-item">
-					<div class="num">{{notice.dynamicNum}}</div>
-					<div class="item-name">动态</div>
-				</div>
-				<div v-if="isManager" class="tab-bar-item center-item">
-					<div class="num">
-						<img class="gridLogo" src="../assets/guanli.png" alt="">
-					</div>
-					<div class="item-name">网格管理</div>
+<!--				<div v-if="!isManager" class="tab-bar-item" @click="gotoApplyMessage">-->
+<!--					<div class="num">{{notice.noticeNum}}</div>-->
+<!--					<div class="item-name">通知</div>-->
+<!--				</div>-->
+<!--				<div v-if="!isManager" class="tab-bar-item center-item">-->
+<!--					<div class="num">{{notice.dynamicNum}}</div>-->
+<!--					<div class="item-name">动态</div>-->
+<!--				</div>-->
+				<div  class="tab-bar-item center-item"  @click="gotoAllFile">
+					<div class="num">{{notice.totalNum}}</div>
+					<div class="item-name">案件查询</div>
 				</div>
 				<div class="tab-bar-item">
 					<div class="num">{{notice.collectNum}}</div>
@@ -46,17 +44,14 @@
 			<div class="navigation-item" v-if="isWGY" @click="gotoreport">
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">问题提交</div>
-				<div class="arror-right"></div>
 			</div>
-			<div class="navigation-item" v-if="isManager" @click="message">
+			<div class="navigation-item" v-if="isManager || isWGY" @click="message">
 				<div class="icon"><img src="../assets/guide.png"></div>
-				<div class="navigation-title">问题处置情况</div>
-				<div class="arror-right"></div>
+				<div class="navigation-title">汇总统计</div>
 			</div>
 			<div class="navigation-item" v-if="isLZ" @click="gotoshop">
 				<div class="icon"><img src="../assets/scorShop.png"></div>
 				<div class="navigation-title">积分商城</div>
-				<div class="arror-right"></div>
 			</div>
 
 			<!--            <div class="navigation-item">-->
@@ -159,11 +154,12 @@
                 this.notice = res.data.data
                 console.log(res.data);
             },
-            gotoApplyList() {
-                this.$router.push({name: 'applyList'})
-            },
-            gotoApplyMessage() {
+            gotoMessage() {
+                console.log(123)
                 this.$router.push({name: 'message'})
+            },
+            gotoAllFile() {
+                this.$router.push({name: 'allFile'})
             },
             gotoreport() {
                 this.$router.push({name: 'report'})
@@ -174,7 +170,7 @@
         },
         async mounted() {
             //组建一进入就好u会调用这个方法
-            document.title = '个人中心'
+            document.title = 'navigation-item个人中心'
             await this.getstatisticsNotice()
         }
     }
@@ -191,7 +187,6 @@
 		right: 0
 		top: 0
 		bottom: 0
-		background #f5f5f5
 
 		.tips-box
 			width 100%
@@ -217,31 +212,35 @@
 				width calc(100% - 0.28rem)
 
 		.navigationBox
-			margin 0.3rem
+			width 100%
 			background #fff
 			height calc(100vh - 5.3rem)
 
 			.navigation-item
-				padding 0.2rem 0.1rem 0.2rem
-				border-bottom 1px solid #cacccc
+				width 44%
+				margin 0 3% 0.4rem
+				float left
+				height 1.54rem
 				display flex
 				align-items center
-				margin 0 0.26rem
-
+				box-shadow 0 0 5px rgba(0,0,0,0.3)
+				border-radius 0.1rem
 				.icon
 					width: 0.5rem
 					height: 0.5rem
 					border-radius 50%
 					background #00204e
-					margin-right: 0.2rem
+					margin:0 0.2rem
+				.navigation-title
+					width calc(100% - 0.9rem)
+					text-align center
+					line-height:0.9rem
+					overflow hidden
+					color #0b67b2
+					font-size 0.34rem
+		.navigation-item:ntb-child(2n+1)
+			clear both
 
-				.arror-right
-					background url("../assets/arrow.jpg")
-					background-size cover
-					width: 0.18rem
-					height: 0.3rem
-					margin-right 0
-					margin-left auto
 
 		.userInfoCard
 			margin 0.26rem

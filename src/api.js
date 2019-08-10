@@ -21,8 +21,12 @@ export async function houseNoticeDetail(problemNumber) {
     })
 }
 
-export async function getQuestionType() {
-    return await http.get(urls.getQuestionType)
+export async function getQuestionType(pid) {
+    return await http.get(urls.getQuestionType, {
+        params: {
+            pid:pid
+        }
+    })
 }
 
 export async function submitQuestion(body) {
@@ -45,4 +49,20 @@ export async function buildings() {
 }
 export async function login() {
     return await http.get(urls.login)
+}
+//待办任务
+export async function noticesDeal(status) {
+    return await http.get(urls.noticesDeal, {
+        params: {
+            status: status
+        }
+    })
+}
+//案件查询
+export async function noticesAll() {
+    return await http.get(urls.noticesAll)
+}
+//申请审核
+export async function auditStatus(body) {
+    return await http.post(urls.auditStatus, body)
 }

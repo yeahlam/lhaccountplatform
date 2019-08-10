@@ -12,11 +12,13 @@
 				</div>
 				<div class="right">
 					<div class="detail-box">
-						<div class="detail-label">详细资料</div>
-						<div class="detail-text">详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料</div>
+						<div class="detail-text">
+							<div class="detail-row">姓名：aaaa</div>
+							<div class="detail-row">电话号码：13126480101</div>
+							<div class="detail-row">身份证号：440111111111111111</div>
+						</div>
 					</div>
 					<div class="detail-box-button-group">
-						<div class="apply-job">管理员</div>
 						<div class="button-group">
 							<div class="button primary mr20">确认通过</div>
 							<div class="button">取消通过</div>
@@ -38,10 +40,11 @@
 				<div class="right">
 					<div class="detail-box">
 						<div class="detail-label">详细资料</div>
-						<div class="detail-text">详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料详细资料</div>
+						<div class="detail-text">
+
+						</div>
 					</div>
 					<div class="detail-box-button-group">
-						<div class="apply-job">管理员</div>
 						<div class="button-group">
 							<div class="button primary mr20">确认通过</div>
 							<div class="button">取消通过</div>
@@ -98,22 +101,23 @@
 				.right
 					flex 1
 					.detail-box
-						display flex
-						height:0.86rem
-						overflow: hidden
 						.detail-label
 							font-size 0.28rem
 							font-weight bold
 							margin-right 0.26rem
 							margin-left: 0.28rem
 						.detail-text
-							flex 1
-							font-size 0.23rem
-							line-height 0.3rem
+							margin-left 0.4rem
+							margin-bottom 0.2rem
+							.detail-row
+								font-size 0.26rem
+								line-height 0.32rem
+								width 100%
+								overflow hidden
+								text-overflow ellipsis
+								white-space nowrap
 					.detail-box-button-group
-						margin-left: 0.28rem
-						margin-top: 0.33rem
-						display flex
+						float right
 						.apply-job
 							color #8f0000
 							font-size 0.22rem
