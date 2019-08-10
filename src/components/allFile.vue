@@ -4,12 +4,18 @@
 		<div class="message-list" v-for="(item,index) in listData" :key="index">
 			<div class="head">
 				<div class="head-title">任务通知</div>
-				<div class="date">{{moment(item.createTime).format('YYYY/MM/DD')}}</div>
+				<div class="date">{{moment(item.time).format('YYYY/MM/DD')}}</div>
 			</div>
 			<div class="message-text">
 				{{item.description}}
 			</div>
 			<div class="btn-box">
+				<div class="status" v-if="item.status==0">&lt;&lt;待处理</div>
+				<div class="status" v-if="item.status==-1">&lt;&lt;已撤销</div>
+				<div class="status" :class="{ing:true}" v-if="item.status==1">&lt;&lt;处理中</div>
+				<div class="status" :class="{ing:true}" v-if="item.status==2">&lt;&lt;结果待确认</div>
+				<div class="status" :class="{ed:true}" v-if="item.status==3">&lt;&lt;已完成</div>
+				<div class="status" :class="{ing:true}" v-if="item.status==4">&lt;&lt;处理不通过</divv>
 				<div class="btn" @click="gotoDetail(item)">查看详情</div>
 			</div>
 		</div>

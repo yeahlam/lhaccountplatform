@@ -20,7 +20,7 @@
 					<div class="status" :class="{ing:true}" v-if="item.status==1">&lt;&lt;处理中</div>
 					<div class="status" :class="{ing:true}" v-if="item.status==2">&lt;&lt;结果待确认</div>
 					<div class="status" :class="{ed:true}" v-if="item.status==3">&lt;&lt;已完成</div>
-
+					<div class="status" :class="{ing:true}" v-if="item.status==4">&lt;&lt;处理不通过</divv>
 					<div class="btn" @click="gotoDetail(item)">查看详情</div>
 				</div>
 			</div>
@@ -34,8 +34,8 @@
 					<div class="apply-time">{{moment(item.createTime).format('YYYY/MM/DD')}}</div>
 				</div>
 				<div class="bottom-info">
-					<div class="header" >
-						<img :src="item.pictureUrl?(IMGURL+item.pictureUrl):defaultImg" alt="">
+					<div class="header">
+						<img :src="IMGURL+item.pictureUrl" alt="">
 					</div>
 					<div class="right">
 						<div class="detail-box">
@@ -47,8 +47,8 @@
 						</div>
 						<div class="detail-box-button-group">
 							<div class="button-group">
-								<div class="button primary mr20" @click="auditStatus(1,item.id)">确认通过</div>
-								<div class="button" @click="auditStatus(0,item.id)">取消通过</div>
+								<div class="button primary mr20" @click="applyAudit(1,item.id)">确认通过</div>
+								<div class="button" @click="applyAudit(0,item.id)">取消通过</div>
 							</div>
 						</div>
 					</div>
@@ -67,7 +67,6 @@
 	import {IMGURL} from "../config";
     import moment from 'moment'
 
-	let defaultImg = require('../assets/nophoto.png')
     export default {
         name: "message",
         data() {
@@ -97,21 +96,16 @@
             },
 			// 审核申请
 			async auditStatus(status,id) {
-            	let obj={
-					status:status,
-					id:id
-				}
-				let res = await api.auditStatus(obj)
-				if (res.data.code == -1) {
-					Toast({
-						message: res.data.msg
-					});
-				} else {
-					Toast({
-						message: '提交成功'
-					});
-					this.$router.replace({name: 'userCenter'})
-
+				try {
+					await api.auditStatus({
+						status:status,
+						id:id
+					})
+					Toast('提交成功')
+					this.getNoticesDeal()
+					//刷新
+				} catch (e) {
+					Toast('提交失败')
 				}
 
 			},
@@ -268,21 +262,24 @@
 					.right
 						flex 1
 						.detail-box
+							display flex
+							height:0.86rem
+							overflow: hidden
 							.detail-label
 								font-size 0.28rem
 								font-weight bold
 								margin-right 0.26rem
 								margin-left: 0.28rem
-							.detail-text
-								margin-left 0.4rem
-								margin-bottom 0.2rem
-								.detail-row
-									font-size 0.26rem
-									line-height 0.32rem
-									width 100%
-									overflow hidden
-									text-overflow ellipsis
-									white-space nowrap
+								.detail-text
+									margin-left 0.4rem
+									margin-bottom 0.2rem
+									.detail-row
+										font-size 0.26rem
+										line-height 0.32rem
+										width 100%
+										overflow hidden
+										text-overflow ellipsis
+										white-space nowrap
 						.detail-box-button-group
 							float right
 				.top-info
@@ -308,19 +305,19 @@
 						color #999999
 				.mr20
 					margin-right 0.1rem
-				.button
-					width: 1.6rem
-					height: 0.7rem
-					border 0.1rem
-					color #fff
-					background #adb6c4
-					display inline-block
-					border-radius 0.1rem
-					font-size 0.26rem
-					line-height 0.7rem
-					text-align center
-					&.primary
-						background #01214f
+					.button
+						width: 1.6rem
+						height: 0.7rem
+						border 0.1rem
+						color #fff
+						background #adb6c4
+						display inline-block
+						border-radius 0.1rem
+						font-size 0.26rem
+						line-height 0.7rem
+						text-align center
+						&.primary
+							background #01214f
 		.mt
 			margin-top 1.1rem
 		.noData

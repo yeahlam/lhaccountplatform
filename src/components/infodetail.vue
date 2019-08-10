@@ -207,15 +207,16 @@
                 console.log(res.data);
             }
         },
-        // async mounted() {
-        //     await this.getStatus()
-        //     await this.getDetail()
-        // },
-        mounted() {
-        	document.title = '任务明细'
-			this.getDetail()
-
-		}
+        async mounted() {
+			document.title = '任务明细'
+            await this.getStatus()
+            await this.getDetail()
+        },
+        // mounted() {
+        // 	document.title = '任务明细'
+		// 	this.getDetail()
+		//
+		// }
 	}
 </script>
 
