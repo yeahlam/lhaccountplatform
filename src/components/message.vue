@@ -35,7 +35,7 @@
 				</div>
 				<div class="bottom-info">
 					<div class="header">
-						<img :src="IMGURL+item.pictureUrl" alt="">
+						<img :src="item.pictureUrl?(IMGURL+item.pictureUrl):defaultImg" alt="">
 					</div>
 					<div class="right">
 						<div class="detail-box">
@@ -66,7 +66,7 @@
     import * as api from '../api'
 	import {IMGURL} from "../config";
     import moment from 'moment'
-
+	//let defaultImg = require('../assets/nophoto.png')
     export default {
         name: "message",
         data() {
@@ -74,7 +74,8 @@
 				IMGURL,
                 listData: [],
 				applyList:[],
-				status:'0'
+				status:'0',
+                defaultImg:require('../assets/nophoto.png')
             }
         },
 		computed: {
@@ -263,23 +264,21 @@
 						flex 1
 						.detail-box
 							display flex
-							height:0.86rem
-							overflow: hidden
 							.detail-label
 								font-size 0.28rem
 								font-weight bold
 								margin-right 0.26rem
 								margin-left: 0.28rem
-								.detail-text
-									margin-left 0.4rem
-									margin-bottom 0.2rem
-									.detail-row
-										font-size 0.26rem
-										line-height 0.32rem
-										width 100%
-										overflow hidden
-										text-overflow ellipsis
-										white-space nowrap
+							.detail-text
+								margin-left 0.4rem
+								margin-bottom 0.2rem
+								.detail-row
+									font-size 0.26rem
+									line-height 0.32rem
+									width 100%
+									overflow hidden
+									text-overflow ellipsis
+									white-space nowrap
 						.detail-box-button-group
 							float right
 							.button

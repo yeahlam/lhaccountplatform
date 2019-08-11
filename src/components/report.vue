@@ -15,8 +15,8 @@
 <!--			&lt;!&ndash;			</div>&ndash;&gt;-->
 <!--		</div>-->
 		<div class="photo">
-			<div class="photo-icon" @click="choosePic">
-                <div class="photo-box">
+			<div class="photo-icon">
+                <div class="photo-box" @click="choosePic">
                     <img src="../assets/photo.png">
 					<input type="file" style="display: none" ref="picinput" @change="inputChange">
                 </div>

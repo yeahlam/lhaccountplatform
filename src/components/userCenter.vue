@@ -41,7 +41,7 @@
 			</div>
 		</div>
 		<div class="navigationBox">
-			<div class="navigation-item" v-if="isWGY" @click="gotoreport">
+			<div class="navigation-item" v-if="isWGY || isManager" @click="gotoreport">
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">问题提交</div>
 			</div>

@@ -52,17 +52,6 @@
 <!--			</div>-->
 <!--		</template>-->
 
-
-		<div class="btn" v-show="isWGY&&realStatus==2">
-			<div class="finished" @click="dealConfirm(1)">问题已完成</div>
-			<div class="notyet" @click="dealConfirm(0)">问题未完成</div>
-		</div>
-		<div class="btn centerbtnbox" v-show="isLZ&&realStatus==0">
-			<div class="finished" @click="receiveTask">接收任务</div>
-		</div>
-		<div class="btn centerbtnbox" v-show="isLZ&&realStatus==1">
-			<div class="finished" @click="gotoComplete">处置任务</div>
-		</div>
 <!--		过往数据展示-->
 		<div class="before">
 			<div class="message-list" v-for="(item,index) in detailData" :key="index">
@@ -78,21 +67,32 @@
 					</div>
 				</div>
 				<div class="message-text">
-					<div class="text-row" >操作人：{{item.submitterName}}</div>
+					<div class="text-row">操作人：{{item.submitterName}}</div>
 					<div class="text-row">事发场所：{{item.buildingName}}</div>
 					<div class="text-row">事项类型1级：{{item.questionTypeFirstName}}</div>
 					<div class="text-row">事项类型2级：{{item.questionTypeSecondName}}</div>
 					<div class="text-row">所在部位：{{item.questionPosition}}</div>
-					<div class="text-row-img" v-if="item.pictureUrl.length>0" >
+					<div class="text-row-img" v-if="item.pictureUrl">
 						<div class="picture" v-for="item in item.pictureUrl" :key="item" >
 							<img :src="IMGURL+item" alt="">
 						</div>
 					</div>
-					<div class="text-row">问题描述：{{item.description}}</div>
-					<div class="text-row" v-if="item.status>1">处理结果：{{item.description}}</div>
+					<div class="text-row" v-if="item.status==0 || item.status==1 || item.status==3">问题描述：{{item.description}}</div>
+					<div class="text-row" v-if="item.status==2">处理结果：{{item.description}}</div>
 				</div>
-				<div class="date">办理时间：{{moment(item.time).format('YYYY/MM/DD')}}</div>
+				<div class="date">办理时间：{{moment(item.time).format('YYYY/MM/DD hh:mm:ss')}}</div>
 			</div>
+		</div>
+
+		<div class="btn" v-show="(isWGY&&realStatus==2) || (isManager&&realStatus==2)">
+			<div class="finished" @click="dealConfirm(1)">问题已完成</div>
+			<div class="notyet" @click="dealConfirm(0)">问题未完成</div>
+		</div>
+		<div class="btn centerbtnbox" v-show="isLZ&&realStatus==0">
+			<div class="finished" @click="receiveTask">接收任务</div>
+		</div>
+		<div class="btn centerbtnbox" v-show="(isLZ&&realStatus==1) || (isLZ&&realStatus==4)">
+			<div class="finished" @click="gotoComplete">处置任务</div>
 		</div>
 	</div>
 </template>
@@ -100,7 +100,7 @@
 <script>
     import {Toast} from 'mint-ui';
     import 'swiper/dist/css/swiper.css'
-    import {swiper, swiperSlide} from 'vue-awesome-swiper'
+    // import {swiper, swiperSlide} from 'vue-awesome-swiper'
     import * as api from '../api'
     import {IMGURL} from "../config";
 	import moment from 'moment'
@@ -108,17 +108,17 @@
     export default {
         name: "infodetail",
         components: {
-            swiper,
-            swiperSlide
+            // swiper,
+            // swiperSlide
         },
         data() {
             return {
                 IMGURL,
-                swiperOption: {
-                    pagination: {
-                        el: '.swiper-pagination',
-                    }
-                },
+                // swiperOption: {
+                //     pagination: {
+                //         el: '.swiper-pagination',
+                //     }
+                // },
                 detailData: {},
                 realStatus: 0,
 				listData: [
@@ -150,7 +150,10 @@
             answerData() {
                 return this.detailData[1] || {}
             },
-
+			isManager() {
+				//是否管理员
+				return ['超级管理员', '管理员'].includes(this.$store.getters.getUserInfo.roleName)
+			},
             isWGY() {
                 //是否网格员
                 return ['网格员'].includes(this.$store.getters.getUserInfo.roleName)
