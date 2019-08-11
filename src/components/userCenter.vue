@@ -155,7 +155,6 @@
                 console.log(res.data);
             },
             gotoMessage() {
-                console.log(123)
                 this.$router.push({name: 'message'})
             },
             gotoAllFile() {
@@ -170,7 +169,7 @@
         },
         async mounted() {
             //组建一进入就好u会调用这个方法
-            document.title = 'navigation-item个人中心'
+            document.title = '个人中心'
             await this.getstatisticsNotice()
         }
     }

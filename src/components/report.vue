@@ -87,7 +87,7 @@
 <!--		</div>-->
 <!--		<div class="tips">*请选择具体建筑</div>-->
 		<div class="submit" @click="submit">提交任务</div>
-		<questionChoose class="questionChoose" v-if="showChoose" @select="typeSelect"></questionChoose>
+		    <questionChoose class="questionChoose" v-if="showChoose" @select="typeSelect"></questionChoose>
 		<txmap2 v-show="isShowMap" @selectMap="selectMap"></txmap2>
 
 		<div class="tips" v-if="isShowBuliding">
@@ -147,7 +147,8 @@
                 return {
                     "description": this.description,
                     "buildingId": this.chooseBuilding,
-                    "questionTypeId": this.chooseProblem,
+                    "questionTypeIdFirst": this.chooseProblemPrimary,
+                    "questionTypeIdSecond": this.chooseProblem,
                     "currentLocation": this.address,
                     "pictureUrl": this.photoList,
 					"questionPosition":this.questionPosition
@@ -193,7 +194,7 @@
             },
             async submit() {
             	console.log(this.postModel)
-                if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeId || !this.postModel.currentLocation || !this.postModel.questionPosition) {
+                if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeIdFirst || !this.postModel.questionTypeIdSecond || !this.postModel.currentLocation || !this.postModel.questionPosition) {
                     Toast('请把资料填写完整')
                     return
                 }
@@ -239,7 +240,6 @@
 					console.log(this.problemList)
 					//this.chooseProblem=res.data.data.id
 				}
-
 				console.log(res.data)
 			},
 			//选择问题
@@ -250,7 +250,7 @@
 					this.problemList = []
 				}else{
 					this.pid=value
-					this.chooseProblem=value
+					this.chooseProblemPrimary=value
 					this.getProblem(this.pid)
 
 				}

@@ -78,12 +78,12 @@
 					</div>
 				</div>
 				<div class="message-text">
-					<div class="text-row">操作人：{{item.submitterName}}</div>
+					<div class="text-row" >操作人：{{item.submitterName}}</div>
 					<div class="text-row">事发场所：{{item.buildingName}}</div>
 					<div class="text-row">事项类型1级：{{item.questionTypeFirstName}}</div>
 					<div class="text-row">事项类型2级：{{item.questionTypeSecondName}}</div>
 					<div class="text-row">所在部位：{{item.questionPosition}}</div>
-					<div class="text-row-img">
+					<div class="text-row-img" v-if="item.pictureUrl.length>0" >
 						<div class="picture" v-for="item in item.pictureUrl" :key="item" >
 							<img :src="IMGURL+item" alt="">
 						</div>
@@ -201,15 +201,16 @@
                 }
             },
             async getDetail() {
-                //let res = await api.houseNoticeDetail(this.$route.query.problemNumber)
-                let res = await api.houseNoticeDetail('11a8aec4-6ff7-4020-9402-fbb99aad346c')
+                let res = await api.houseNoticeDetail(this.$route.query.problemNumber)
+                //let res = await api.houseNoticeDetail('11a8aec4-6ff7-4020-9402-fbb99aad346c')
                 this.detailData = res.data.data
+				this.realStatus=res.data.data[0].status
                 console.log(res.data);
             }
         },
         async mounted() {
 			document.title = '任务明细'
-            await this.getStatus()
+            //await this.getStatus()
             await this.getDetail()
         },
         // mounted() {

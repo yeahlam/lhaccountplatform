@@ -15,7 +15,7 @@
 				<div class="status" :class="{ing:true}" v-if="item.status==1">&lt;&lt;处理中</div>
 				<div class="status" :class="{ing:true}" v-if="item.status==2">&lt;&lt;结果待确认</div>
 				<div class="status" :class="{ed:true}" v-if="item.status==3">&lt;&lt;已完成</div>
-				<div class="status" :class="{ing:true}" v-if="item.status==4">&lt;&lt;处理不通过</divv>
+				<div class="status" :class="{ing:true}" v-if="item.status==4">&lt;&lt;处理不通过</div>
 				<div class="btn" @click="gotoDetail(item)">查看详情</div>
 			</div>
 		</div>

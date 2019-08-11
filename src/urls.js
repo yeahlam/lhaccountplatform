@@ -28,5 +28,5 @@ export default {
     exchangePicture: `./${wx}/upload/exchange-picture`,
     noticesDeal: `./${wx}/basic-info/notices-deal`,
     noticesAll: `./${wx}/basic-info/notices-all`,
-    auditStatus: `./${wx}/basic-info/notices-all`,
+    auditStatus: `./${wx}/operate/audit-status`,
 }
