@@ -32,41 +32,48 @@
                 </div>
 			</div>
 		</div>
-		<div class="report-section">
+		<div class="report-section clearfix">
 			<div class="section-title">事项类型第1级</div>
 			<select  placeholder="选择事项类型第1级" v-model="chooseProblemPrimary" @change="changeProblemPrimary($event)">
 				<option value="-1">请选择</option>
 				<option :key="index" v-for="(item,index) in problemListPrimary" :value="item.id">{{item.name}}</option>
 			</select>
 		</div>
-		<div class="report-section">
+		<div class="report-section clearfix">
 			<div class="section-title">事项类型第2级</div>
 			<select  placeholder="选择事项类型第2级" v-model="chooseProblem" @change="changeProblem($event)">
 				<option value="-1">请选择</option>
 				<option :key="index" v-for="(item,index) in problemList" :value="item.id">{{item.name}}</option>
 			</select>
 		</div>
-		<div class="report-section">
-			<div class="text">{{address?address:'点击右侧按钮进入地图进行定位'}}</div>
-			<div class="get" @click="isShowMap=true">定位</div>
+<!--		<div class="report-section">-->
+<!--			<div class="text">{{address?address:'点击右侧按钮进入地图进行定位'}}</div>-->
+<!--			<div class="get" @click="isShowMap=true">定位</div>-->
+<!--		</div>-->
+		<div class="report-section clearfix">
+			<div class="section-title">事发场所</div>
+			<div class="seciton-input">
+				<input class="buildingInput"  v-model="buildingName"  />
+				<div class="buildingName">
+					<ul>
+						<li class="bulidingLi" v-for="(item,index) in buildingsList" :key="index">{{item.}}</li>
+					</ul>
+				</div>
+			</div>
+			<img src="../assets/report-search.png" @click="search">
+			<span  @click="bulidingSelect">点击选择</span>
 		</div>
 <!--		<div class="report-section">-->
 <!--			<div class="section-title">事发场所</div>-->
-<!--			<input class="shortInput" />-->
-<!--			<img src="../assets/report-search.png">-->
-<!--			<span  @click="bulidingSelect">点击选择</span>-->
+<!--			<select  placeholder="选择具体楼层" v-model="chooseBuilding">-->
+<!--				<option :key="index" v-for="(item,index) in buildingsList" :value="item.id">{{item.name}}</option>-->
+<!--			</select>-->
 <!--		</div>-->
-		<div class="report-section">
-			<div class="section-title">事发场所</div>
-			<select  placeholder="选择具体楼层" v-model="chooseBuilding">
-				<option :key="index" v-for="(item,index) in buildingsList" :value="item.id">{{item.name}}</option>
-			</select>
-		</div>
-		<div class="report-section">
+		<div class="report-section clearfix">
 			<div class="section-title">所在部位</div>
 			<input class="longInput"  v-model="questionPosition" />
 		</div>
-		<div class="textarea-section">
+		<div class="textarea-section clearfix">
 			<div class="section-title">问题描述</div>
 			<textarea  v-model="description"></textarea>
 		</div>
@@ -94,7 +101,19 @@
 			<div class="tips-bg"></div>
 			<div class="tips-buliding">
 				<select class="tips-select">
-					<option>区域1</option>
+					<option>1级</option>
+					<option>2</option>
+				</select>
+				<select class="tips-select">
+					<option>2级</option>
+					<option>2</option>
+				</select>
+				<select class="tips-select">
+					<option>3级</option>
+					<option>2</option>
+				</select>
+				<select class="tips-select">
+					<option>4级</option>
 					<option>2</option>
 				</select>
 				<div class="tips-submit" @click="submitBuliding">确定</div>
@@ -126,7 +145,7 @@
 				questionPosition:'',//所在部位
                 phone: '', //手机号码
                 isShowMap: false,
-                address: '',//地址
+                //address: '',//地址
                 buildingsList: [], //楼层列表
                 chooseBuilding: '',
 				isShowBuliding:false,
@@ -135,6 +154,7 @@
 				chooseProblemPrimary:'-1',
 				chooseProblem:'-1',
 				pid:0,
+				buildingName:'',
             }
         },
         components: {
@@ -149,7 +169,7 @@
                     "buildingId": this.chooseBuilding,
                     "questionTypeIdFirst": this.chooseProblemPrimary,
                     "questionTypeIdSecond": this.chooseProblem,
-                    "currentLocation": this.address,
+                    //"currentLocation": this.address,
                     "pictureUrl": this.photoList,
 					"questionPosition":this.questionPosition
                 }
@@ -158,10 +178,10 @@
         },
         methods: {
 
-            selectMap(data) {
-                this.isShowMap = false
-                this.address = data.poiaddress
-            },
+            // selectMap(data) {
+            //     this.isShowMap = false
+            //     this.address = data.poiaddress
+            // },
 			bulidingSelect(){
 				this.isShowBuliding=true
 			},
@@ -193,32 +213,29 @@
                 picinput.click()
             },
             async submit() {
-            	console.log(this.postModel)
-                if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeIdFirst || !this.postModel.questionTypeIdSecond || !this.postModel.currentLocation || !this.postModel.questionPosition) {
-                    Toast('请把资料填写完整')
-                    return
-                }
-                try {
-                    let res = await api.submitQuestion(this.postModel)
-                    if (res.data.code == -1) {
-                        Toast({
-                            message: res.data.msg
-                        });
-                    } else {
-                        Toast({
-                            message: '提交成功'
-                        });
-                        this.$router.replace({name: 'userCenter'})
+				console.log(this.postModel)
+				if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeIdFirst || !this.postModel.questionTypeIdSecond || !this.postModel.questionPosition) {
+					Toast('请把资料填写完整')
+					return
+				}
+				try {
+					let res = await api.submitQuestion(this.postModel)
+					if (res.data.code == -1) {
+						Toast({
+							message: res.data.msg
+						});
+					} else {
+						Toast({
+							message: '提交成功'
+						});
+						this.$router.replace({name: 'userCenter'})
 
-                    }
+					}
 
-                } catch (e) {
-                    Toast('提交失败');
-                }
-            },
-            chooseQuestionType() {
-                this.showChoose = true
-            },
+				} catch (e) {
+					Toast('提交失败');
+				}
+			},
             typeSelect(item) {
                 this.chooseType = item
                 this.showChoose = false
@@ -260,11 +277,37 @@
 				let value=event.target.value
 				this.chooseProblem=value
 			},
-			async getBuildings() {
-				let res = await api.buildings()
-				this.buildingsList = res.data.data
-				this.chooseBuilding = res.data.data[0].id
-				console.log(res.data)
+			// async getBuildings() {
+			// 	let res = await api.buildings()
+			// 	this.buildingsList = res.data.data
+			// 	this.chooseBuilding = res.data.data[0].id
+			// 	console.log(res.data)
+			// },
+			//模糊搜索查询
+			async search() {
+				if (!this.buildingName) {
+					Toast('请填写场所名称')
+					return
+				}
+				try {
+					let res = await api.buildings(this.buildingName)
+					if (res.data.code == -1) {
+						Toast({
+							message: res.data.msg
+						});
+					} else {
+						if(res.data){
+							this.buildingsList=res.data
+						}
+						Toast({
+							message: '没有查询到该楼层'
+						});
+
+					}
+
+				} catch (e) {
+					Toast('提交失败');
+				}
 			}
         },
         async mounted() {
@@ -386,9 +429,13 @@
 						position absolute
 						top 0
 						right 0
+		.clearfix:before,.clearfix:after
+			content " "
+			display table
+		.clearfix:after
+			clear both
 		.report-section
 			margin 0 0.2rem 0.2rem
-			overflow hidden
 			.text
 				font-size 0.2rem
 				color #333
@@ -427,7 +474,7 @@
 				display  block
 				float left
 				margin-left 0.2rem
-			.shortInput
+			.seciton-input
 				display block
 				float left
 				height 0.9rem
@@ -439,6 +486,34 @@
 				border-radius 0 0.1rem 0.1rem 0
 				box-sizing border-box
 				padding-left 0.3rem
+				position relative
+				.buildingInput
+					display block
+					height 0.9rem
+					line-height 0.9rem
+					width 100%
+					border 0
+					font-size 0.2rem
+					background-color #f5f5f5
+					position absolute
+					top 0
+					left 0
+				.buildingName
+					position absolute
+					top 0.9rem
+					left 0
+					width 100%
+					max-height 5rem
+					overflow-y auto
+					.bulidingLi
+						width 100%
+						height 0.7rem
+						line-height 0.7rem
+						background-color #fff
+						font-size 0.2rem
+						color #666
+						text-align center
+						border-bottom 1px solid #0162ab
 			.longInput
 				display block
 				float left

@@ -53,6 +53,10 @@
 				<div class="icon"><img src="../assets/scorShop.png"></div>
 				<div class="navigation-title">积分商城</div>
 			</div>
+			<div class="navigation-item" @click="gotocount">
+				<div class="icon"><img src="../assets/scorShop.png"></div>
+				<div class="navigation-title">汇总统计</div>
+			</div>
 
 			<!--            <div class="navigation-item">-->
 			<!--                <div class="icon"><img src="../assets/scorShop.png"></div>-->
@@ -165,6 +169,9 @@
             },
 			gotoshop() {
 				this.$router.push({name: 'shop'})
+			},
+			gotocount() {
+				this.$router.push({name: 'count'})
 			}
         },
         async mounted() {

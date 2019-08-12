@@ -29,4 +29,5 @@ export default {
     noticesDeal: `./${wx}/basic-info/notices-deal`,
     noticesAll: `./${wx}/basic-info/notices-all`,
     auditStatus: `./${wx}/operate/audit-status`,
+    statisticsPersion: `./${wx}/basic-info/statistics-persion`,
 }

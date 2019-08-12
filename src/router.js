@@ -98,6 +98,11 @@ export default new Router({
             path: '/allFile',
             name: 'allFile',
             component: () => import('./components/allFile.vue')
+        },
+        {
+            path: '/count',
+            name: 'count',
+            component: () => import('./components/count.vue')
         }
     ]
 })

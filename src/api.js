@@ -44,8 +44,13 @@ export async function questionDeal(body) {
 export async function dealConfirm(body) {
     return await http.post(urls.dealConfirm, body)
 }
-export async function buildings() {
-    return await http.get(urls.buildings)
+//楼层检索
+export async function buildings(buildName) {
+    return await http.get(urls.buildings, {
+        params: {
+            buildName:buildName
+        }
+    })
 }
 export async function login() {
     return await http.get(urls.login)
@@ -65,4 +70,7 @@ export async function noticesAll() {
 //申请审核
 export async function auditStatus(body) {
     return await http.post(urls.auditStatus, body)
+}//汇总统计
+export async function statisticsPersion() {
+    return await http.get(urls.statisticsPersion)
 }
