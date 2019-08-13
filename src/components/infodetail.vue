@@ -74,7 +74,7 @@
 					<div class="text-row">所在部位：{{item.questionPosition}}</div>
 					<div class="text-row-img" v-if="item.pictureUrl">
 						<div class="picture" v-for="item in item.pictureUrl" :key="item" >
-							<img :src="IMGURL+item" alt="">
+							<img :src="IMGURL+item" alt="" @click="imgClick($event)">
 						</div>
 					</div>
 					<div class="text-row" v-if="item.status==0 || item.status==1 || item.status==3">问题描述：{{item.description}}</div>
@@ -164,6 +164,14 @@
             }
         },
         methods: {
+            imgClick(e) {
+                let str = e.target.getAttribute('src')
+                console.log(window.location.origin+str);
+                window.wx.previewImage({
+                    current: window.location.origin+str, // 当前显示图片的http链接
+                    urls: [window.location.origin+str]
+                });
+            },
 			moment,
             async dealConfirm(status) {
                 try {

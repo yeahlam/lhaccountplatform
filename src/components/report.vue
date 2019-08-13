@@ -27,7 +27,7 @@
 			</div>
 			<div class="photo-list">
                 <div class="photo-row" v-for="(item,index) in photoList" :key="index">
-                    <img class="picture" :src="IMGURL+item">
+                    <img class="picture" :src="IMGURL+item" @click="imgClick($event)">
                     <img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
                 </div>
 			</div>
@@ -56,7 +56,7 @@
 				<input class="buildingInput"  v-model="buildingName"  />
 				<div class="buildingName">
 					<ul>
-						<li class="bulidingLi" v-for="(item,index) in buildingsList" :key="index">{{item.}}</li>
+						<li class="bulidingLi" v-for="(item,index) in buildingsList" :key="index" @click="buildingItemClick(item)">{{item.name}}</li>
 					</ul>
 				</div>
 			</div>
@@ -95,7 +95,7 @@
 <!--		<div class="tips">*请选择具体建筑</div>-->
 		<div class="submit" @click="submit">提交任务</div>
 		    <questionChoose class="questionChoose" v-if="showChoose" @select="typeSelect"></questionChoose>
-		<txmap2 v-show="isShowMap" @selectMap="selectMap"></txmap2>
+<!--		<txmap2 v-show="isShowMap" @selectMap="selectMap"></txmap2>-->
 
 		<div class="tips" v-if="isShowBuliding">
 			<div class="tips-bg"></div>
@@ -130,7 +130,7 @@
     import {Toast} from 'mint-ui';
     import axios from 'axios'
     import url from '../urls'
-    import txmap2 from './txmap2'
+    // import txmap2 from './txmap2'
     import {IMGURL} from "../config";
 
     export default {
@@ -155,11 +155,11 @@
 				chooseProblem:'-1',
 				pid:0,
 				buildingName:'',
+				buildingId:'',
             }
         },
         components: {
-            questionChoose,
-            txmap2
+            questionChoose
         },
         computed: {
             postModel() {
@@ -177,7 +177,20 @@
             }
         },
         methods: {
-
+            imgClick(e) {
+                let str = e.target.getAttribute('src')
+                console.log(window.location.origin+str);
+                window.wx.previewImage({
+                    current: window.location.origin+str, // 当前显示图片的http链接
+                    urls: [window.location.origin+str]
+                });
+            },
+            buildingItemClick(item){
+                this.buildingsList=[]
+				this.buildingName=item.name
+				this.buildingId=item.id
+                console.log(item);
+            },
             // selectMap(data) {
             //     this.isShowMap = false
             //     this.address = data.poiaddress
@@ -296,12 +309,14 @@
 							message: res.data.msg
 						});
 					} else {
-						if(res.data){
-							this.buildingsList=res.data
+						if(res.data.data.length){
+							this.buildingsList=res.data.data
+						}else{
+                            Toast({
+                                message: '没有查询到该楼层'
+                            });
 						}
-						Toast({
-							message: '没有查询到该楼层'
-						});
+
 
 					}
 
@@ -314,7 +329,7 @@
             //组建一进入就好u会调用这个方法
             document.title = '问题提交'
 			this.getProblem()
-			this.getBuildings()
+			// this.getBuildings()
         }
     }
 </script>

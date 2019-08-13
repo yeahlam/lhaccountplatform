@@ -7,7 +7,7 @@
 					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
 				</div>
 				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
-					<img class="picture" src="../assets/add_picture.png">
+					<img class="picture" src="../assets/add_picture.png" @click="imgClick($event)">
 					<input type="file" style="display: none" ref="picinput" @change="inputChange">
 				</div>
 			</div>
@@ -60,6 +60,14 @@
             }
         },
         methods: {
+            imgClick(e) {
+                let str = e.target.getAttribute('src')
+                console.log(window.location.origin+str);
+                window.wx.previewImage({
+                    current: window.location.origin+str, // 当前显示图片的http链接
+                    urls: [window.location.origin+str]
+                });
+            },
             async questionDeal() {
                 if (!this.postModel.description) {
                     Toast('请把资料填写完整')
