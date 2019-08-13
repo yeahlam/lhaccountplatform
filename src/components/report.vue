@@ -298,10 +298,10 @@
 			// },
 			//模糊搜索查询
 			async search() {
-				if (!this.buildingName) {
-					Toast('请填写场所名称')
-					return
-				}
+				// if (!this.buildingName) {
+				// 	Toast('请填写场所名称')
+				// 	return
+				// }
 				try {
 					let res = await api.buildings(this.buildingName)
 					if (res.data.code == -1) {

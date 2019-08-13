@@ -45,17 +45,13 @@
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">问题提交</div>
 			</div>
-			<div class="navigation-item" v-if="isManager || isWGY" @click="message">
+			<div class="navigation-item" v-if="!isLZ" @click="message">
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">汇总统计</div>
 			</div>
 			<div class="navigation-item" v-if="isLZ" @click="gotoshop">
 				<div class="icon"><img src="../assets/scorShop.png"></div>
 				<div class="navigation-title">积分商城</div>
-			</div>
-			<div class="navigation-item" @click="gotocount">
-				<div class="icon"><img src="../assets/scorShop.png"></div>
-				<div class="navigation-title">汇总统计</div>
 			</div>
 
 			<!--            <div class="navigation-item">-->
