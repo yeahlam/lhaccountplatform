@@ -179,10 +179,10 @@
         methods: {
             imgClick(e) {
                 let str = e.target.getAttribute('src')
-                console.log(window.location.origin+str);
+                let url =window.location.origin+window.location.pathname+str
                 window.wx.previewImage({
-                    current: window.location.origin+str, // 当前显示图片的http链接
-                    urls: [window.location.origin+str]
+                    current: url, // 当前显示图片的http链接
+                    urls: [url]
                 });
             },
             buildingItemClick(item){
