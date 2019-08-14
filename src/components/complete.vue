@@ -62,7 +62,7 @@
         methods: {
             imgClick(e) {
                 let str = e.target.getAttribute('src')
-				let url =window.location.origin+window.location.pathname+str
+				let url =window.location.origin+'/admin-console/'+str
                 window.wx.previewImage({
                     current: url, // 当前显示图片的http链接
                     urls: [url]

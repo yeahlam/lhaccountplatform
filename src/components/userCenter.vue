@@ -8,7 +8,7 @@
 			<div class="userInfoCardDecoration">{{userInfo.roleName}}</div>
 			<div class="photo" @click="headerClick">
 				<img :src=IMGURL+headerImg>
-				<input type="file" ref="headerInput" style="display: none;" @click="inputChange">
+				<input type="file" ref="headerInput" style="display: none;" @change="inputChange">
 			</div>
 			<div class="userInfoTextBox">
 				<div class="name">{{userInfo.name}}</div>
@@ -45,7 +45,7 @@
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">问题提交</div>
 			</div>
-			<div class="navigation-item" v-if="!isLZ" @click="message">
+			<div class="navigation-item" v-if="!isLZ" @click="gotocount">
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">汇总统计</div>
 			</div>
@@ -126,9 +126,7 @@
         },
         methods: {
             async inputChange() {
-
                 let picinput = this.$refs.headerInput
-
                 let formdata = new FormData();// 创建form对象
                 formdata.append('file', picinput.files[0]);
                 try {

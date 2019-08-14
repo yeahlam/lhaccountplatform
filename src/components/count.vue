@@ -113,22 +113,25 @@
         height: 100%
 
    .count
+        min-height 100vh
+        width 100%
+        background-color #fafafc
         .list-row
-            background url("../assets/message.png") no-repeat center left 0.2rem
-            background-size 0.4rem 0.4rem
-            height 1rem
-            line-height 1rem
-            border-bottom 1px solid #0162ab
+            height .86rem
+            line-height .86rem
+            border-bottom 1px solid #e0e0e0
             box-sizing border-box
-            margin  0 0.4rem
-            padding 0 0.2rem 0 0.7rem
+            padding 0 0.3rem 0 0.3rem
             color #333
+            background-color #fff
             .list-title
-                font-size 0.26rem
-                height 1rem
-                line-height 1rem
+                font-size 0.3em
+                height 0.86rem
+                line-height 0.86rem
                 float left
                 width 60%
+                color #6d6d6d
+
             .list-count
                 height 1rem
                 float right
