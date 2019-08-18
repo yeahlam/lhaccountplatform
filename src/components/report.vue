@@ -166,7 +166,7 @@
 
                 return {
                     "description": this.description,
-                    "buildingId": this.chooseBuilding,
+                    "buildingId": this.buildingId,
                     "questionTypeIdFirst": this.chooseProblemPrimary,
                     "questionTypeIdSecond": this.chooseProblem,
                     //"currentLocation": this.address,
@@ -553,6 +553,7 @@
 				border-radius 0 0.1rem 0.1rem 0
 				box-sizing border-box
 				padding-left 0.3rem
+				background-color #f5f5f5
 
 			.section-title
 				width 1.9rem

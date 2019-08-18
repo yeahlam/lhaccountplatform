@@ -103,6 +103,11 @@ export default new Router({
             path: '/count',
             name: 'count',
             component: () => import('./components/count.vue')
+        },
+        {
+            path: '/contact',
+            name: 'contact',
+            component: () => import('./components/contact.vue')
         }
     ]
 })
