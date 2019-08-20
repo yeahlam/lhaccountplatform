@@ -74,3 +74,11 @@ export async function auditStatus(body) {
 export async function statisticsPersion() {
     return await http.get(urls.statisticsPersion)
 }
+//获取通讯录
+export async function getContactList(info) {
+    return await http.get(urls.getContactList, {
+        params: {
+            status: info
+        }
+    })
+}

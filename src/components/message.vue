@@ -127,7 +127,16 @@
         mounted() {
             //组建一进入就好u会调用这个方法
             document.title = '待办任务'
-            this.getNoticesDeal()
+			console.log(this.$route.params.tab)
+			 var tab=this.$route.params.tab || ''
+			if(tab){
+				this.status=tab
+				this.getNoticesDeal()
+			}else{
+				this.getNoticesDeal()
+			}
+
+
         }
     }
 </script>

@@ -3,12 +3,12 @@
 		<div class="photo">
 			<div class="photo-list">
 				<div class="photo-row" v-for="(item,index) in photoList" :key="index">
-					<img class="picture" :src="IMGURL+item">
+					<img class="picture" :src="IMGURL+item" @change="inputChange">
 					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
 				</div>
 				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
 					<img class="picture" src="../assets/add_picture.png" @click="imgClick($event)">
-					<input type="file" style="display: none" ref="picinput" @change="inputChange">
+					<input type="file" style="display: none" ref="picinput" >
 				</div>
 			</div>
 			<div class="count">[{{photoList.length}}/5]</div>

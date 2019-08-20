@@ -226,7 +226,10 @@
                 picinput.click()
             },
             async submit() {
-				console.log(this.postModel)
+				if (!this.postModel.buildingId) {
+					Toast('无法找到该事发场所')
+					return
+				}
 				if (!this.postModel.description || !this.postModel.buildingId || !this.postModel.questionTypeIdFirst || !this.postModel.questionTypeIdSecond || !this.postModel.questionPosition) {
 					Toast('请把资料填写完整')
 					return

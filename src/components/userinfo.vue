@@ -35,12 +35,27 @@
 </template>
 
 <script>
+	// import 'swiper/dist/css/swiper.css'
+	// import * as api from '../api'
     export default {
         name: "userCenter",
-        mounted() {
-            //组建一进入就好u会调用这个方法
-            document.title = '个人中心'
-        }
+		// data() {
+		// 	return {
+		// 		detailData: {}
+		// 	}
+		// },
+		methods:{
+			// async getDetail() {
+			// 	let res = await api.houseNoticeDetail(this.$route.query.id)
+			// 	this.detailData = res.data.data
+			// 	console.log(res.data);
+			// }
+
+		},
+		async mounted() {
+			document.title = '详细资料'
+			//await this.getDetail()
+		},
     }
 </script>
 

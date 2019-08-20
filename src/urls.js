@@ -30,4 +30,5 @@ export default {
     noticesAll: `./${wx}/basic-info/notices-all`,
     auditStatus: `./${wx}/operate/audit-status`,
     statisticsPersion: `./${wx}/basic-info/statistics-persion`,
+    getContactList: `./${wx}/basic-info/getContactList`,
 }

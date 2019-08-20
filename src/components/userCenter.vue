@@ -100,7 +100,7 @@
                 return this.$store.getters.getUserInfo
             },
             headerImg() {
-                return this.userInfo.phoneUrl ? this.userInfo.phoneUrl : defaultImg
+                return this.userInfo.pictureUrl ? this.userInfo.pictureUrl : defaultImg
             },
             roleType() {
                 if (this.$store.getters.getUserInfo.roleName === '超级管理员') {
@@ -133,7 +133,7 @@
                     let res = await axios.post(url.exchangePicture, formdata, {
                         headers: {'Content-Type': 'multipart/form-data'}
                     })
-                    this.userInfo.phoneUrl = res.data.data.path
+                    this.userInfo.pictureUrl = res.data.data.path
                     Toast('上传成功')
 
                 } catch (e) {
@@ -166,12 +166,26 @@
 			},
 			gotocount() {
 				this.$router.push({name: 'count'})
+			},
+			getQueryString(name) {
+				var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+				var r = window.location.search.substr(1).match(reg);
+				if (r != null) {
+					return unescape(r[2]);
+				}
+				return null;
 			}
         },
         async mounted() {
+			var page=this.getQueryString('page') || ''
+			var tab=this.getQueryString('tab') || ''
+			if(page=='message'){
+				this.$router.push({name: 'message', params: {tab: tab}})
+			}
             //组建一进入就好u会调用这个方法
             document.title = '个人中心'
             await this.getstatisticsNotice()
+
         }
     }
 </script>

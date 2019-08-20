@@ -1,25 +1,24 @@
 <template>
     <div class="contact">
         <div class="contact-search">
-            <input class="searchInput"  v-model="search"  />
+            <input class="searchInput"  v-model="searchContent" />
             <img class="searchIcon" src="../assets/report-search.png" @click="search">
         </div>
+        <div v-for="(item,key1) in contactList" :key="key1">
+            <div class="list-row-first" @click="showList" v-if="item.length>0" >
+                <div class="list-title-first">{{mapping[key1]}}</div>
+                <img class="list-icon-first" src="../assets/arrow.jpg">
+            </div>
+            <ul class="list"  v-if="item.length>0" >
+                <li class="list-row" v-for="(item2,index) in  item" :key="index">
+                    <div class="list-title">{{item2.name}}</div>
+                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                </li>
+            </ul>
+        </div>
 
-        <ul>
-            <li class="list-row-first">
-                <div class="list-title">管理员</div>
-                <div class="list-count">
-                    <div class="list-count-num">0</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
-                </div>
-            </li>
-            <li class="list-row">
-                <div class="list-title">张三张三</div>
-                <div class="list-count">
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
-                </div>
-            </li>
-        </ul>
+
+
     </div>
 </template>
 
@@ -34,7 +33,14 @@
         },
         data() {
             return {
-                detailData: {}
+                contactList: {},
+                searchContent:'',
+                mapping:{
+                    admin:'管理员',
+                    gridmember:'网格员',
+                    buildingmanager:'楼长'
+                },
+                nowkey:''
             }
         },
 
@@ -43,22 +49,39 @@
         },
         methods: {
 
-            async getDetail() {
-                let res = await api.statisticsPersion()
-                this.detailData = res.data.data
-                console.log(res.data);
+            async getContact() {
+                let res = await api.getContactList()
+                console.log(res.data.data.admin);
+                this.contactList = res.data.data
+
+            },
+            search(){
+                this.getContact(this.searchContent)
+            },
+            showList(index){
+                console.log(index)
+                if (this.nowkey == index) {
+                    this.nowkey = ''
+                }else{
+                    this.nowkey = index
+
+                }
+            },
+            gotoDetail(item) {
+                this.$router.push({
+                    name: 'userinfo',
+                    query: {
+                        id: item.id
+                    }
+                })
+                console.log(item);
             }
         },
-        async mounted() {
-            document.title = '任务明细'
-            //await this.getStatus()
-            await this.getDetail()
-        },
-        // mounted() {
-        // 	document.title = '任务明细'
-        // 	this.getDetail()
-        //
-        // }
+        mounted() {
+        	document.title = '通讯录'
+            this.getContact(this.searchContent)
+
+        }
     }
 </script>
 
@@ -87,49 +110,49 @@
                 border 0
                 font-size 0.2rem
                 padding 0 0.2rem
-        .list-row-first
-            height .86rem
-            line-height .86rem
-            border-bottom 1px solid #e0e0e0
-            box-sizing border-box
-            padding 0 0.3rem 0 0.3rem
-            color #333
-            background-color #fff
-        .list-row
-            height .86rem
-            line-height .86rem
-            border-bottom 1px solid #e0e0e0
-            box-sizing border-box
-            padding 0 0.3rem 0 0.3rem
-            color #333
-            background-color #fff
-            .list-title
-                font-size 0.3em
-                height 0.86rem
-                line-height 0.86rem
-                float left
-                width 60%
-                color #6d6d6d
-
-            .list-count
-                height 1rem
-                float right
-                width 40%
+       .list-row-first
+           height .86rem
+           line-height .86rem
+           border-radius 0.1rem
+           box-sizing border-box
+           margin 0 0.3rem 0 0.3rem
+           color #333
+           padding 0 0.2rem
+           background-color #f2f2f2
+           font-size 0.3rem
+           display flex
+           align-items center
+           justify-content space-between
+           margin-bottom 0.3rem
+           .list-title-first
+               font-size 0.3rem
+               color #333
+           .list-icon-first
+               height 0.3rem
+               width 0.18rem
+               transform rotate(90deg)
+       .list
+            .list-row
+                height .86rem
+                line-height .86rem
+                border-bottom 1px solid #e0e0e0
+                box-sizing border-box
+                padding 0 0.2rem 0 0.2rem
+                margin 0 0.3rem
+                color #333
+                background-color #fff
                 display flex
                 align-items center
-                .list-count-num
-                    font-size 0.26rem
-                    height 1rem
-                    line-height 1rem
-                    width calc( 100% - 0.38rem)
-                    margin-right 0.2rem
-                    overflow hidden
-                    float left
-                    text-align right
+                justify-content space-between
+                .list-title
+                    font-size 0.3em
+                    height 0.86rem
+                    line-height 0.86rem
+                    width 60%
+                    color #6d6d6d
                 .list-count-icon
                     height 0.3rem
                     width 0.18rem
                     display block
-                    float right
 
 </style>
