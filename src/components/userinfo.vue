@@ -1,60 +1,100 @@
 <template>
 	<div class="userInfo">
 
-		<div class="userInfoCard">
-			<div class="userInfoCardDecoration">网格员</div>
+		<div class="userInfoCard" :class="[roleType]">
+			<div class="userInfoCardDecoration">{{userInfo.roleName}}</div>
 			<div class="photo">
-				<img src="../assets/nophoto.png" alt="">
+				<img :src=IMGURL+headerImg>
 			</div>
 			<div class="userInfoTextBox">
-				<div class="name">133548745</div>
-				<div class="usertitle">用户</div>
-				<div class="real-name">真实姓名:王茂
-					<span class="age">29岁</span>
-				</div>
+				<div class="name">{{userInfo.name}}</div>
+<!--				<div class="usertitle">用户</div>-->
 			</div>
 			<div class="tab-bar">
-				<div class="userInfoDetail">电话号码:13455555555</div>
-				<div class="userInfoDetail">身份证号:442000000000000000</div>
+				<div class="userInfoDetail">电话号码:{{userInfo.phoneNum}}</div>
+				<div class="userInfoDetail">身份证号:{{userInfo.card}}</div>
 			</div>
 		</div>
-		<div class="info-row-box">
-			<div class="info-row-item">
-				紧急联系人:<span>张三</span>
-			</div>
-			<div class="info-row-item">
-				紧急联系电话:<span>13488888888</span>
-			</div>
-			<div class="info-row-item">
-				<img class="locationLogo" src="../assets/location.png" alt="">
-				<span>广东省深圳市卡萨丁好看还是看哈是就</span>
-			</div>
-		</div>
+<!--		<div class="info-row-box">-->
+<!--			<div class="info-row-item">-->
+<!--				紧急联系人:<span>张三</span>-->
+<!--			</div>-->
+<!--			<div class="info-row-item">-->
+<!--				紧急联系电话:<span>13488888888</span>-->
+<!--			</div>-->
+<!--			<div class="info-row-item">-->
+<!--				<img class="locationLogo" src="../assets/location.png" alt="">-->
+<!--				<span>广东省深圳市卡萨丁好看还是看哈是就</span>-->
+<!--			</div>-->
+<!--		</div>-->
+
+		<div @click="jobCancel(id)" class="cancel">取消任职</div>
 
 	</div>
 </template>
 
 <script>
-	// import 'swiper/dist/css/swiper.css'
-	// import * as api from '../api'
+
+	import 'swiper/dist/css/swiper.css'
+	import * as api from '../api'
+	import {Toast} from 'mint-ui';
+	import {IMGURL} from "../config";
+	import axios from 'axios'
+
+	let defaultImg = require('../assets/nophoto.png')
+
     export default {
-        name: "userCenter",
-		// data() {
-		// 	return {
-		// 		detailData: {}
-		// 	}
-		// },
+        name: "userinfo",
+		data() {
+			return {
+				IMGURL,
+				detailData: {},
+				id:'',
+				userInfo:{}
+			}
+		},
+		computed: {
+			headerImg() {
+				return this.userInfo.pictureUrl ? this.userInfo.pictureUrl : defaultImg
+			},
+			roleType() {
+				if (this.userInfo.roleName === '超级管理员') {
+					return 'supermanager'
+				}
+				if (this.userInfo.roleName === '管理员') {
+					return 'manager'
+				}
+				return 'executer'
+			},
+
+		},
 		methods:{
-			// async getDetail() {
-			// 	let res = await api.houseNoticeDetail(this.$route.query.id)
-			// 	this.detailData = res.data.data
-			// 	console.log(res.data);
-			// }
+			async jobCancel(id) {
+				try {
+					await api.jobCancel({
+						id:id
+					})
+					Toast('提交成功')
+					//刷新
+				} catch (e) {
+					Toast('提交失败')
+				}
+
+			},
+			async getUserInfo(id) {
+				let res = await api.getUserInfo(id)
+				console.log(res.data.data);
+				this.userInfo = res.data.data
+
+			},
 
 		},
 		async mounted() {
 			document.title = '详细资料'
-			//await this.getDetail()
+			// this.id=this.$route.query.id
+			this.id=this.$route.query.id
+			await this.getUserInfo(this.$route.query.id)
+			console.log(this.id)
 		},
     }
 </script>
@@ -81,6 +121,11 @@
 			background linear-gradient(to right, #0162ab, #73b7ed)
 			position: relative
 			box-shadow 0px 2px 10px rgba(0,0,0,0.5)
+			&.manager
+				background linear-gradient(to right, #970203, #c32700)
+
+			&.supermanager
+				background linear-gradient(to right, #9e7a3e, #debc7e)
 
 			.tab-bar
 				position: absolute
@@ -105,7 +150,7 @@
 				font-size 0.28rem
 				line-height 0.7rem
 				text-align center
-				color #3c2500
+				color #fff
 
 			.userInfoTextBox
 				position: absolute
@@ -155,5 +200,19 @@
 
 
 
+		.cancel{
+			font-size 0.3rem
+			border-radius 0.1rem
+			background-color #0162ab
+			color #fff
+			display block
+			width 2rem;
+			height 0.8rem
+			line-height 0.8rem
+			text-align center
+			position fixed
+			right .5rem
+			bottom 0.5rem
+		}
 
 </style>

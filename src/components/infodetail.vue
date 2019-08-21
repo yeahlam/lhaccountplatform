@@ -104,6 +104,7 @@
     import * as api from '../api'
     import {IMGURL} from "../config";
 	import moment from 'moment'
+    import axios from 'axios'
 
     export default {
         name: "infodetail",

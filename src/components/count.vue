@@ -125,17 +125,17 @@
             color #333
             background-color #fff
             .list-title
-                font-size 0.3em
+                font-size 0.32em
                 height 0.86rem
                 line-height 0.86rem
                 float left
-                width 60%
+                width 50%
                 color #6d6d6d
 
             .list-count
                 height 1rem
                 float right
-                width 40%
+                width 50%
                 display flex
                 align-items center
                 .list-count-num

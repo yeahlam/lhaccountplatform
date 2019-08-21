@@ -31,4 +31,6 @@ export default {
     auditStatus: `./${wx}/operate/audit-status`,
     statisticsPersion: `./${wx}/basic-info/statistics-persion`,
     getContactList: `./${wx}/basic-info/getContactList`,
+    jobCancel: `./${wx}/operate/job-cancel`,
+    getUserInfo: `./${wx}/basic-info/getUserInfo`,
 }

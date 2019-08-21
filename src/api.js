@@ -70,7 +70,8 @@ export async function noticesAll() {
 //申请审核
 export async function auditStatus(body) {
     return await http.post(urls.auditStatus, body)
-}//汇总统计
+}
+//汇总统计
 export async function statisticsPersion() {
     return await http.get(urls.statisticsPersion)
 }
@@ -78,7 +79,18 @@ export async function statisticsPersion() {
 export async function getContactList(info) {
     return await http.get(urls.getContactList, {
         params: {
-            status: info
+            name: info
+        }
+    })
+}
+//取消任职
+export async function jobCancel(body) {
+    return await http.post(urls.jobCancel, body)
+}
+export async function getUserInfo(id) {
+    return await http.get(urls.getUserInfo, {
+        params: {
+            id: id
         }
     })
 }

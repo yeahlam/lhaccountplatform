@@ -53,6 +53,10 @@
 				<div class="icon"><img src="../assets/scorShop.png"></div>
 				<div class="navigation-title">积分商城</div>
 			</div>
+			<div class="navigation-item" @click="gotocontact">
+				<div class="icon"><img src="../assets/guide.png"></div>
+				<div class="navigation-title">通讯录</div>
+			</div>
 
 			<!--            <div class="navigation-item">-->
 			<!--                <div class="icon"><img src="../assets/scorShop.png"></div>-->
@@ -166,6 +170,9 @@
 			},
 			gotocount() {
 				this.$router.push({name: 'count'})
+			},
+			gotocontact() {
+				this.$router.push({name: 'contact'})
 			},
 			getQueryString(name) {
 				var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');

@@ -10,7 +10,7 @@
                 <img class="list-icon-first" src="../assets/arrow.jpg">
             </div>
             <ul class="list"  v-if="nowkey==key1">
-                <li class="list-row" v-for="(item2,index) in  item" :key="index">
+                <li class="list-row" v-for="(item2,index) in  item" :key="index" @click="gotoDetail(item2)">
                     <div class="list-title">{{item2.name}}</div>
                     <img class="list-count-icon" src="../assets/arrow.jpg">
                 </li>
@@ -25,6 +25,7 @@
 <script>
     import 'swiper/dist/css/swiper.css'
     import * as api from '../api'
+    import axios from 'axios'
 
     export default {
         name: "contact",
@@ -49,14 +50,15 @@
         },
         methods: {
 
-            async getContact() {
-                let res = await api.getContactList()
+            async getContact(info) {
+                let res = await api.getContactList(info)
                 console.log(res.data.data.admin);
                 this.contactList = res.data.data
 
             },
             search(){
                 this.nowkey=''
+                console.log(this.searchContent)
                 this.getContact(this.searchContent)
             },
             showList(index){

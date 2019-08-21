@@ -3,11 +3,11 @@
 		<div class="photo">
 			<div class="photo-list">
 				<div class="photo-row" v-for="(item,index) in photoList" :key="index">
-					<img class="picture" :src="IMGURL+item" @change="inputChange">
+					<img class="picture" :src="IMGURL+item"   @click="imgClick($event)">
 					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
 				</div>
 				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
-					<img class="picture" src="../assets/add_picture.png" @click="imgClick($event)">
+					<img class="picture" src="../assets/add_picture.png" @change="inputChange">
 					<input type="file" style="display: none" ref="picinput" >
 				</div>
 			</div>
