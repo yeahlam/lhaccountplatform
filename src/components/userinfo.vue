@@ -55,7 +55,7 @@
 		},
 		computed: {
 			headerImg() {
-				return this.userInfo.pictureUrl ? this.userInfo.pictureUrl : defaultImg
+				return this.userInfo.attachmentId ? this.userInfo.attachmentId : defaultImg
 			},
 			roleType() {
 				if (this.userInfo.roleName === '超级管理员') {

@@ -5,63 +5,63 @@
                 <div class="list-title">提交的问题汇总</div>
                 <div class="list-count">
                    <div class="list-count-num">{{detailData.submitStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row" v-if="detailData.auditStatisticsNum">
                 <div class="list-title">已处理的审核总数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.auditStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row" v-if="detailData.buildStatisticsNum">
                 <div class="list-title">管理的建筑物数量</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.buildStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row" v-if="detailData.waitDealQuestionStatisticsNum">
                 <div class="list-title">待处理的问题总数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.waitDealQuestionStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row" v-if="detailData.totalBindStatisticsNum">
                 <div class="list-title">提的审核总数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.totalBindStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row">
                 <div class="list-title">待处理的审核总数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.waitDealBindStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row">
                 <div class="list-title">总的楼层数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.totalBuildStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row">
                 <div class="list-title">总的网格员数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.totalGridmemberStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
             <li class="list-row">
                 <div class="list-title">总的楼长数</div>
                 <div class="list-count">
                     <div class="list-count-num">{{detailData.totalBuildingManagerStatisticsNum}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </div>
             </li>
         </ul>

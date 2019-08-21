@@ -7,18 +7,15 @@
         <div v-for="(item,key1) in contactList" :key="key1">
             <div class="list-row-first" @click="showList(key1)" v-if="item.length>0" >
                 <div class="list-title-first">{{mapping[key1]}}</div>
-                <img class="list-icon-first" src="../assets/arrow.jpg">
+                <img class="list-icon-first" src="../assets/arrow.png">
             </div>
             <ul class="list"  v-if="nowkey==key1">
                 <li class="list-row" v-for="(item2,index) in  item" :key="index" @click="gotoDetail(item2)">
                     <div class="list-title">{{item2.name}}</div>
-                    <img class="list-count-icon" src="../assets/arrow.jpg">
+                    <img class="list-count-icon" src="../assets/arrow.png">
                 </li>
             </ul>
         </div>
-
-
-
     </div>
 </template>
 
