@@ -108,6 +108,21 @@ export default new Router({
             path: '/contact',
             name: 'contact',
             component: () => import('./components/contact.vue')
+        },
+        {
+            path: '/scroedetail',
+            name: 'scroedetail',
+            component: () => import('./components/scroedetail.vue')
+        },
+        {
+            path: '/exchangeList',
+            name: 'exchangeList',
+            component: () => import('./components/exchangeList.vue')
+        },
+        {
+            path: '/house',
+            name: 'house',
+            component: () => import('./components/house.vue')
         }
     ]
 })

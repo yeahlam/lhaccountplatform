@@ -6,9 +6,8 @@
 		</div>
 		<div class="userInfoCard" :class="[roleType]">
 			<div class="userInfoCardDecoration">{{userInfo.roleName}}</div>
-			<div class="photo" @click="headerClick">
+			<div class="photo">
 				<img :src=IMGURL+headerImg>
-				<input type="file" ref="headerInput" style="display: none;" @click="inputChange">
 			</div>
 			<div class="userInfoTextBox">
 				<div class="name">{{userInfo.name}}</div>
@@ -18,74 +17,37 @@
 				</div>
 			</div>
 			<div class="sceow-btn-box">
-				<div class="btn-scroe-detail">积分明细</div>
-				<div class="btn-change-detail">积分兑换记录</div>
+				<div class="btn-scroe-detail" @click="gotoScroedetail">积分明细</div>
+				<div class="btn-change-detail" @click="gotoExchangeList">积分兑换记录</div>
 			</div>
-
-
 		</div>
 		<div class="shop-center">
 			<div class="shop-title"><div class="b-left"></div>热门兑换<div class="b-right"></div></div>
 			<div class="product">
-					<div class="product-detail">
-						<img src="">
+					<div class="product-detail" @click="isShowBigPhoto(item)" v-for="(item,index) in listData" :key="index">
+						<img :src="IMGURL+item.pictureUrl">
 						<div class="produc-title">
-							<div class="product-name">手机保护壳手机保护壳手机保护壳手机保护壳</div>
-							<div class="product-score">500积分</div>
+							<div class="product-name">{{item.name}}</div>
+							<div class="product-score">{{item.exchangeIntegral}}积分</div>
 						</div>
-
 					</div>
-					<div class="product-detail">
-						<img src="">
-						<div class="produc-title">
-							<div class="product-name">手机保护壳</div>
-							<div class="product-score">500积分</div>
-						</div>
 
-
-					</div>
-					<div class="product-detail">
-						<img src="">
-						<div class="produc-title">
-							<div class="product-name">手机保护壳</div>
-							<div class="product-score">500积分</div>
-						</div>
-
-
-					</div>
-					<div class="product-detail">
-						<img src="">
-						<div class="produc-title">
-							<div class="product-name">手机保护壳</div>
-							<div class="product-score">500积分</div>
-						</div>
-
-
-					</div>
-					<div class="product-detail">
-						<img src="">
-						<div class="produc-title">
-							<div class="product-name">手机保护壳</div>
-							<div class="product-score">10000积分</div>
-						</div>
-
-					</div>
 			</div>
 		</div>
 
-		<div class="product-pop on">
+		<div class="product-pop" v-if="showProduct">
 			<div class="product-content">
-				<img class="product-photo" src="" />
+				<img class="product-photo" :src="IMGURL+produceDetail.pictureUrl" />
 				<div class="produc-title1">
-					<div class="product-name1">手机保护壳手机保护壳手机保护壳手机保护壳</div>
-					<div class="product-score1">500积分</div>
+					<div class="product-name1">{{produceDetail.name}}</div>
+					<div class="product-score1">{{produceDetail.exchangeIntegral}}积分</div>
 				</div>
 				<div class="change">
-					<div class="submit">确定</div>
-					<div class="cancel">取消</div>
+					<div class="submit" @click="submit">确定</div>
+					<div class="cancel" @click="close">取消</div>
 				</div>
 				<div class="product-main">
-					kjfdfjldfdkfl
+					{{produceDetail.introduce}}
 				</div>
 			</div>
 
@@ -97,18 +59,20 @@
 <script>
 	import * as api from '../api'
 	import {IMGURL} from "../config";
-	import axios from 'axios'
+	import {Toast} from 'mint-ui';
+	// import axios from 'axios'
+	// import url from '../urls'
 
 	let defaultImg = require('../assets/nophoto.png')
-	import url from '../urls'
-	import {Toast} from 'mint-ui';
 
 	export default {
 		name: "shop",
 		data() {
 			return {
 				IMGURL,
-				notice: {}
+				listData: {},
+				showProduct:false,
+				produceDetail:{}
 			}
 		},
 		computed: {
@@ -141,50 +105,45 @@
 			}
 		},
 		methods: {
-			async inputChange() {
 
-				let picinput = this.$refs.headerInput
-
-				let formdata = new FormData();// 创建form对象
-				formdata.append('file', picinput.files[0]);
-				try {
-					let res = await axios.post(url.exchangePicture, formdata, {
-						headers: {'Content-Type': 'multipart/form-data'}
-					})
-					this.userInfo.phoneUrl = res.data.data.path
-					Toast('上传成功')
-
-				} catch (e) {
-					Toast('上传失败')
-				}
-				picinput.value = ''
-
-			},
-			headerClick() {
-				this.$refs.headerInput.click()
-			},
 			message() {
 			},
-			async getstatisticsNotice() {
-				let res = await api.statisticsNotice()
-				this.notice = res.data.data
+			async getGift() {
+				let res = await api.giftList()
+				this.listData = res.data.data
 				console.log(res.data);
 			},
-			gotoApplyList() {
-				this.$router.push({name: 'applyList'})
+			gotoScroedetail() {
+				this.$router.push({name: 'scroedetail'})
 			},
-			gotoApplyMessage() {
-				this.$router.push({name: 'message'})
+			gotoExchangeList() {
+				this.$router.push({name: 'exchangeList'})
 			},
-			gotoreport() {
-				this.$router.push({name: 'report'})
+			isShowBigPhoto(item){
+				this.produceDetail=item
+				this.showProduct=true
+			},
+			close(){
+				this.showProduct=false
+			},
+			async submit() {
+				this.showProduct=false
+				try {
+					await api.exchangeGift({
+						id:this.produceDetail.id
+					})
+					Toast('兑换成功')
+					await this.getGift()
+				} catch (e) {
+					Toast('兑换失败')
+				}
 
-			}
+			},
 		},
 		async mounted() {
 			//组建一进入就好u会调用这个方法
 			document.title = '积分商城'
-			await this.getstatisticsNotice()
+			await this.getGift()
 		}
 	}
 </script>
@@ -366,7 +325,7 @@
 							color #402a01
 							line-height 0.32rem
 							float left
-							width calc(100% - 0.9rem)
+							width calc(100% - 1.2rem)
 							overflow hidden
 							text-overflow ellipsis
 							white-space nowrap
@@ -376,15 +335,13 @@
 							line-height 0.32rem
 							color #c51f21
 							float right
-							width 0.9rem
+							width 1.2rem
 							overflow hidden
 							text-overflow ellipsis
 							white-space nowrap
+							text-align right
 
 		.product-pop
-			display none
-			&.on
-				display block
 			.product-content
 				position fixed
 				top 0
@@ -426,7 +383,7 @@
 
 				.product-main
 					margin 0.3rem 0.3rem 0
-					background-color #000
+					color #333
 
 				.change
 					overflow hidden

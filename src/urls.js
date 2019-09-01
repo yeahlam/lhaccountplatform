@@ -33,4 +33,9 @@ export default {
     getContactList: `./${wx}/basic-info/getContactList`,
     jobCancel: `./${wx}/operate/job-cancel`,
     getUserInfo: `./${wx}/basic-info/getUserInfo`,
+    giftList: `./${wx}/basic-info/gift-list`,
+    exchangeGift: `./${wx}/operate/exchange-gift`,
+    integrationDetail: `./${wx}/basic-info/integration-detail`,
+    exchangeGiftDetail: `./${wx}/basic-info/exchange-gift-detail`,
+    houseList: `./${wx}/basic-info/house-list`,
 }

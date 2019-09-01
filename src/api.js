@@ -94,3 +94,26 @@ export async function getUserInfo(id) {
         }
     })
 }
+
+//获取商品列表
+export async function giftList() {
+    return await http.get(urls.giftList)
+}
+
+//兑换礼物
+export async function exchangeGift(body) {
+    return await http.post(urls.exchangeGift, body)
+}
+//积分明细
+export async function integrationDetail() {
+    return await http.get(urls.integrationDetail)
+}
+
+//获取用户兑换记录
+export async function exchangeGiftDetail() {
+    return await http.get(urls.exchangeGiftDetail)
+}
+//获取租房列表
+export async function houseList() {
+    return await http.get(urls.houseList)
+}

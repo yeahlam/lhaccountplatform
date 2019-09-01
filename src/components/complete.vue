@@ -6,9 +6,13 @@
 					<img class="picture" :src="IMGURL+item"   @click="imgClick($event)">
 					<img class="close-right" @click="delpic(index)" src="../assets/close_right.png">
 				</div>
+<!--				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">-->
+<!--					<img class="picture" src="../assets/add_picture.png" @change="inputChange">-->
+<!--					<input type="file" style="display: none" ref="picinput" >-->
+<!--				</div>-->
 				<div class="photo-row" @click="choosePic" v-show="!(photoList.length>=5)">
-					<img class="picture" src="../assets/add_picture.png" @change="inputChange">
-					<input type="file" style="display: none" ref="picinput" >
+					<img class="picture" src="../assets/add_picture.png">
+					<input type="file" style="display: none" ref="picinput" @change="inputChange">
 				</div>
 			</div>
 			<div class="count">[{{photoList.length}}/5]</div>
