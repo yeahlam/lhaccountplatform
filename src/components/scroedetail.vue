@@ -17,7 +17,7 @@
 
 <script>
     import * as api from '../api'
-    import {Toast} from 'mint-ui';
+    //import {Toast} from 'mint-ui';
 
     export default {
         name: "scroedetail",

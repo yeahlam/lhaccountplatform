@@ -36,16 +36,15 @@
                 console.log(this.detailData);
             }
         },
-        // async mounted() {
-        //     document.title = '任务明细'
-        //     //await this.getStatus()
-        //     await this.getDetail()
-        // },
-        mounted() {
-        	document.title = '积分兑换记录'
-        	this.getDetail()
-
-        }
+        async mounted() {
+            document.title = '积分兑换记录'
+            await this.getDetail()
+        },
+        // mounted() {
+        // 	document.title = '积分兑换记录'
+        // 	this.getDetail()
+        //
+        // }
     }
 </script>
 

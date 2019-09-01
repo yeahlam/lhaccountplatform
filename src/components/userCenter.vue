@@ -57,10 +57,10 @@
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">通讯录</div>
 			</div>
-			<div class="navigation-item" @click="gotohouse">
-				<div class="icon"><img src="../assets/guide.png"></div>
-				<div class="navigation-title">待租房源</div>
-			</div>
+<!--			<div class="navigation-item" @click="gotohouse">-->
+<!--				<div class="icon"><img src="../assets/guide.png"></div>-->
+<!--				<div class="navigation-title">待租房源</div>-->
+<!--			</div>-->
 
 			<!--            <div class="navigation-item">-->
 			<!--                <div class="icon"><img src="../assets/scorShop.png"></div>-->
@@ -195,6 +195,8 @@
 			var tab=this.getQueryString('tab') || ''
 			if(page=='message'){
 				this.$router.push({name: 'message', params: {tab: tab}})
+			}else if(page){
+				this.$router.push({name: page})
 			}
             //组建一进入就好u会调用这个方法
             document.title = '个人中心'

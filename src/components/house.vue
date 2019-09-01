@@ -5,7 +5,7 @@
 			<div class="house-detail">
 				<div class="house-tag">{{item.address}}·{{item.houseType}}</div>
 				<div class="house-tag red">{{item.price}}/月</div>
-				<div class="house-tag">40m²·{{item.direction}}</div>
+				<div class="house-tag">{{item.size}}m²·{{item.direction}}</div>
 
 			</div>
 
@@ -35,10 +35,10 @@
 				console.log(res.data);
 			},
 		},
-		async mounted() {
+		mounted() {
 			//组建一进入就好u会调用这个方法
 			document.title = '待租房源'
-			await this.getHouseList()
+			this.getHouseList()
 		}
 	}
 </script>
