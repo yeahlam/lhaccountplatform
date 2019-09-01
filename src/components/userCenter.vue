@@ -180,24 +180,10 @@
 			},
 			gotohouse() {
 				this.$router.push({name: 'house'})
-			},
-			getQueryString(name) {
-				var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
-				var r = window.location.search.substr(1).match(reg);
-				if (r != null) {
-					return unescape(r[2]);
-				}
-				return null;
 			}
         },
         async mounted() {
-			var page=this.getQueryString('page') || ''
-			var tab=this.getQueryString('tab') || ''
-			if(page=='message'){
-				this.$router.push({name: 'message', params: {tab: tab}})
-			}else if(page){
-				this.$router.push({name: page})
-			}
+
             //组建一进入就好u会调用这个方法
             document.title = '个人中心'
             await this.getstatisticsNotice()

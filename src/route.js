@@ -2,10 +2,32 @@ import router from './router'
 import store from './store'
 import {getUserInfo, getUserDict, login} from './userInfo'
 
-let nocheck = ['login']
+function getQueryString(name) {
+    var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)', 'i');
+    var r = window.location.search.substr(1).match(reg);
+    if (r != null) {
+        return unescape(r[2]);
+    }
+    return null;
+}
+
+let nocheck = ['login', 'house']
 
 router.beforeEach(async (to, from, next) => {
-    //next()
+    if (to.name === 'userCenter') {
+        var page = getQueryString('page') || ''
+        if (page == 'message') {
+            var tab = getQueryString('tab') || ''
+            next({name: 'message', params: {tab: tab}})
+        } else if (page) {
+            next({name: page})
+        } else {
+            next()
+        }
+        return
+    }
+
+
     //保证页面拥有userinfo在store
     if (nocheck.includes(to.name)) {
         next()
