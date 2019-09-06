@@ -14,17 +14,17 @@ function getQueryString(name) {
 let nocheck = ['login', 'house']
 
 router.beforeEach(async (to, from, next) => {
+    next()
     if (to.name === 'userCenter') {
         var page = getQueryString('page') || ''
         if (page == 'message') {
             var tab = getQueryString('tab') || ''
             next({name: 'message', params: {tab: tab}})
-        } else if (page) {
+            return
+        } else if (page == 'house') {
             next({name: page})
-        } else {
-            next()
+            return
         }
-        return
     }
 
 

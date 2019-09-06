@@ -22,7 +22,6 @@
 <script>
     import 'swiper/dist/css/swiper.css'
     import * as api from '../api'
-    import axios from 'axios'
 
     export default {
         name: "contact",

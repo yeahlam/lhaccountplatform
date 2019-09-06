@@ -133,7 +133,7 @@
 						id:this.produceDetail.id
 					})
 					Toast('兑换成功')
-					await this.getGift()
+					location.reload()
 				} catch (e) {
 					Toast('兑换失败')
 				}

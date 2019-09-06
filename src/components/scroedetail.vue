@@ -85,7 +85,7 @@
                 width 100%
                 padding-top  0.86rem
             .list-title
-                font-size 0.26em
+                font-size 0.26rem
                 height 0.86rem
                 line-height 0.86rem
                 float left

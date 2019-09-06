@@ -123,6 +123,16 @@ export default new Router({
             path: '/house',
             name: 'house',
             component: () => import('./components/house.vue')
+        },
+        {
+            path: '/housedetail',
+            name: 'housedetail',
+            component: () => import('./components/housedetail.vue')
+        },
+        {
+            path: '/housepush',
+            name: 'housepush',
+            component: () => import('./components/housepush.vue')
         }
     ]
 })

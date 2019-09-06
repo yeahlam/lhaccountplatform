@@ -1,6 +1,6 @@
 <template>
 	<div class="house">
-		<div class="house-list" v-for="(item,index) in listData" :key="index">
+		<div class="house-list" v-for="(item,index) in listData" :key="index" @click="gotoDetail(item)">
 			<img :src="IMGURL+item.pictureUrl">
 			<div class="house-detail">
 				<div class="house-tag">{{item.address}}·{{item.houseType}}</div>
@@ -18,11 +18,13 @@
 	import * as api from '../api'
 	import {IMGURL} from "../config";
 
+
 	export default {
 		name: "house",
 		data() {
 			return {
 				IMGURL,
+
 				listData: {},
 			}
 		},
@@ -34,6 +36,15 @@
 				this.listData = res.data.data
 				console.log(res.data);
 			},
+			gotoDetail(item) {
+				this.$router.push({
+					name: 'housedetail',
+					query: {
+						houseNumber: item.id
+					}
+				})
+			},
+
 		},
 		mounted() {
 			//组建一进入就好u会调用这个方法

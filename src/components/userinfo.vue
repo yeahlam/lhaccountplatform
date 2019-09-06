@@ -39,7 +39,6 @@
 	import * as api from '../api'
 	import {Toast} from 'mint-ui';
 	import {IMGURL} from "../config";
-	import axios from 'axios'
 
 	let defaultImg = require('../assets/nophoto.png')
 

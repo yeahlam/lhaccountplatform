@@ -117,3 +117,11 @@ export async function exchangeGiftDetail() {
 export async function houseList() {
     return await http.get(urls.houseList)
 }
+//房屋详情
+export async function houseDetail(id) {
+    return await http.get(urls.houseDetail, {
+        params: {
+            id: id
+        }
+    })
+}

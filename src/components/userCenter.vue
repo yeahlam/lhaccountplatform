@@ -57,6 +57,10 @@
 				<div class="icon"><img src="../assets/guide.png"></div>
 				<div class="navigation-title">通讯录</div>
 			</div>
+			<div class="navigation-item" v-if="isLZ" @click="gotohousepush">
+				<div class="icon"><img src="../assets/guide.png"></div>
+				<div class="navigation-title">房源发布</div>
+			</div>
 <!--			<div class="navigation-item" @click="gotohouse">-->
 <!--				<div class="icon"><img src="../assets/guide.png"></div>-->
 <!--				<div class="navigation-title">待租房源</div>-->
@@ -177,6 +181,9 @@
 			},
 			gotocontact() {
 				this.$router.push({name: 'contact'})
+			},
+			gotohousepush() {
+				this.$router.push({name: 'housepush'})
 			},
 			gotohouse() {
 				this.$router.push({name: 'house'})
