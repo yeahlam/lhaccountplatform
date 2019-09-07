@@ -39,4 +39,5 @@ export default {
     exchangeGiftDetail: `./${wx}/basic-info/exchange-gift-detail`,
     houseList: `./hourseInfo/house-list`,
     houseDetail: `./hourseInfo/house-detail`,
+    submitHouse: `./${wx}/operate/submit-house`,
 }

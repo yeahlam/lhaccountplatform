@@ -4,31 +4,31 @@
         <div class="swiperBox">
             <swiper :options="swiperOption" ref="mySwiper" class="swiperBoxMain">
                 <!-- slides -->
-<!--                <swiper-slide class="swiperItem" v-for="item in houseData.pictureUrl" :key="item">-->
-<!--                    <img :src="IMGURL+item" alt="" @click="imgClick($event)">-->
-<!--                </swiper-slide>-->
+                <swiper-slide class="swiperItem" v-for="item in houseData.pictureUrl" :key="item">
+                    <img :src="IMGURL+item" alt="" >
+                </swiper-slide>
                 <!-- Optional controls -->
 
-                <swiper-slide class="swiperItem">
-                    <img src="../assets/eg.png" alt="" @click="imgClick($event)">
-                </swiper-slide>
+<!--                <swiper-slide class="swiperItem">-->
+<!--                    <img :src="IMGURL+houseData.pictureUrl" alt=""  @click="imgClick($event)">-->
+<!--                </swiper-slide>-->
 
                 <div class="swiper-pagination" slot="pagination"></div>
             </swiper>
         </div>
         <div class="address">
-            深圳市xx
+            {{houseData.address}}
         </div>
-        <div class="rent">￥1000<span>元/月</span></div>
-        <div class="content">联系人：张先生</div>
-        <div class="content"> 联系电话：13120000000</div>
+        <div class="rent">￥{{houseData.price}}<span>元/月</span></div>
+        <div class="content">联系人：{{houseData.relationName}}</div>
+        <div class="content"> 联系电话：{{houseData.phoneNum}}</div>
         <div class="introduce">
             <div class="introduce-title">房屋介绍</div>
             <div class="introduce-detail">
-                吧啦吧啦吧啦
+                {{houseData.description}}
             </div>
         </div>
-        <a class="phone" href="tel:0147-88469258">拨打电话：13136666666</a>
+        <a class="phone" :href="'tel:' + houseData.phone">拨打电话：{{houseData.phoneNum}}</a>
 
 	</div>
 </template>

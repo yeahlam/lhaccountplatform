@@ -72,9 +72,9 @@
                 return {
                     "description": this.description,
                     "address": this.address,
-                    "phone": this.phone,
-                    "rent": this.rent,
-                    "contact": this.contact,
+                    "phoneNum": this.phone,
+                    "price": this.rent,
+                    "relationName": this.contact,
 					"pictureUrl": this.photoList,
                 }
 
@@ -130,7 +130,7 @@
                 picinput.click()
             },
             async submit() {
-				if (!this.postModel.description || !this.postModel.address || !this.postModel.phone || !this.postModel.rent || !this.postModel.contact) {
+				if (!this.postModel.description || !this.postModel.address || !this.postModel.phoneNum || !this.postModel.price || !this.postModel.relationName) {
 					Toast('请把资料填写完整')
 					return
 				}
