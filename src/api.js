@@ -125,3 +125,7 @@ export async function houseDetail(id) {
         }
     })
 }
+//提交房源
+export async function submitHouse(body) {
+    return await http.post(urls.submitHouse, body)
+}

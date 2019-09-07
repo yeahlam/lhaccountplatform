@@ -10,13 +10,7 @@
                 <!-- Optional controls -->
 
                 <swiper-slide class="swiperItem">
-                    <img src="../assets/news.png" alt="" @click="imgClick($event)">
-                </swiper-slide>
-                <swiper-slide class="swiperItem">
-                    <img src="../assets/news.png" alt="">
-                </swiper-slide>
-                <swiper-slide class="swiperItem">
-                    <img src="../assets/news.png" alt="">
+                    <img src="../assets/eg.png" alt="" @click="imgClick($event)">
                 </swiper-slide>
 
                 <div class="swiper-pagination" slot="pagination"></div>
@@ -85,16 +79,16 @@
                 });
             },
         },
-        // async mounted() {
-		// 	document.title = '房屋详情'
-        //     //await this.getStatus()
-        //     await this.getDetail()
-        // },
-        mounted() {
-        	document.title = '房屋详情'
-			this.getDetail()
+        async mounted() {
+			document.title = '房屋详情'
+            //await this.getStatus()
+            await this.getDetail()
+        },
+        // mounted() {
+        // 	document.title = '房屋详情'
+		// 	this.getDetail()
 
-		}
+		// }
 	}
 </script>
 

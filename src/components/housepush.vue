@@ -139,7 +139,7 @@
 					return
 				}
 				try {
-					let res = await api.submitQuestion(this.postModel)
+					let res = await api.submitHouse(this.postModel)
 					if (res.data.code == -1) {
 						Toast({
 							message: res.data.msg
@@ -227,7 +227,6 @@
         async mounted() {
             //组建一进入就好u会调用这个方法
             document.title = '房源发布'
-			this.getProblem()
 			// this.getBuildings()
         }
     }
